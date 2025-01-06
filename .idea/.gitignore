@@ -1,6 +1,7 @@
 # Default ignored files
 /shelf/
 /caches/
+/artifacts/
 
 /workspace.xml
 compiler.xml
@@ -12,3 +13,4 @@ misc.xml
 runConfigurations.xml
 vcs.xml
 .name
+/modules.xml

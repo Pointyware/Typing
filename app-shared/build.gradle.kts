@@ -6,6 +6,7 @@ plugins {
 }
 
 kotlin {
+    jvm("desktop")
     androidTarget {
         compilations.all {
             compileTaskProvider.configure {
