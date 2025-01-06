@@ -20,6 +20,7 @@ fun MyApplicationTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
+    // TODO: move to app-shared
     val colors = if (darkTheme) {
         darkColorScheme(
             primary = Color(0xFFBB86FC),
