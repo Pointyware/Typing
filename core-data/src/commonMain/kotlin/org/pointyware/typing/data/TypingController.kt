@@ -66,6 +66,7 @@ class TypingControllerImpl(
     }
 
     override fun setInput(input: String) {
+        currentInput = input
         mutableProgress.update {
             TypingProgress(
                 input,
