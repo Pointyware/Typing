@@ -25,7 +25,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "core-ui"
+            baseName = "core_ui"
             isStatic = true
         }
     }
