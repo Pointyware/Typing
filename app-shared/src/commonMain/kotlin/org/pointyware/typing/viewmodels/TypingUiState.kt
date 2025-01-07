@@ -1,21 +1,22 @@
 package org.pointyware.typing.viewmodels
 
+import org.pointyware.typing.data.TypingProgress
 import org.pointyware.typing.ui.LoadingState
 
 /**
  *
  */
 data class TypingUiState(
-    val subject: String = "",
-    val progress: String = "",
-    val wpm: Float = 0.0f,
+    val subject: String,
+    val progress: TypingProgress,
+    val wpm: Float,
     val timerState: TimerUiState,
-    val loadingState: LoadingState = LoadingState.Idle,
+    val loadingState: LoadingState,
 ) {
     companion object {
         val Empty = TypingUiState(
             subject = "",
-            progress = "",
+            progress = TypingProgress("", emptyList()),
             wpm = 0.0f,
             timerState = TimerUiState.Stopped,
             loadingState = LoadingState.Idle,
