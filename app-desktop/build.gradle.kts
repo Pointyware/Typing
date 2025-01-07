@@ -13,6 +13,7 @@ dependencies {
     implementation(compose.material3)
     implementation(compose.materialIconsExtended)
     implementation(compose.material3AdaptiveNavigationSuite)
+    implementation(libs.compose.navigation)
 
     implementation(compose.desktop.currentOs)
     implementation(compose.components.uiToolingPreview)

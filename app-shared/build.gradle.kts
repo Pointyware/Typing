@@ -33,6 +33,8 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.coreUi)
+
+            api(libs.compose.navigation)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
