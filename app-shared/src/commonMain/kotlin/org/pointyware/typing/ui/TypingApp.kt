@@ -18,6 +18,7 @@ fun TypingApp(
     val viewModel = remember {
         val subjectProvider = TestSubjectProvider("The quick brown fox jumps over the lazy dog.")
         val controller = TypingControllerImpl(subjectProvider)
+        controller.reset()
         TypingViewModelImpl(controller)
     }
     TypingScreen(
