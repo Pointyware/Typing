@@ -15,5 +15,5 @@ dependencies {
 }
 
 application {
-    mainClass = "org.pointyware.timer.desktop.ApplicationKt"
+    mainClass = "org.pointyware.typing.desktop.ApplicationKt"
 }
