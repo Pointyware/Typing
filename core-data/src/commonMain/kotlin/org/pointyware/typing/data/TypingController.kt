@@ -64,11 +64,10 @@ class TypingControllerImpl(): TypingController {
     }
 
     override fun setInput(input: String) {
-        val subject = subject.value
         mutableProgress.update {
             TypingProgress(
                 input,
-                findMismatchedRanges(subject, input)
+                findMismatchedRanges(subject.value, input)
             )
         }
     }
@@ -83,14 +82,13 @@ class TypingControllerImpl(): TypingController {
                 while (position < maxLength && subject[position] != input[position]) {
                     position++
                 }
-                if (position < maxLength) { // if we're not at the end of the string
-                    ranges.add(start until position)
-                } else { // reached end of input or subject
-                    ranges.add(start until input.length)
-                }
+                ranges.add(start until position)
             } else {
                 position++
             }
+        }
+        if (input.length > subject.length) {
+            ranges.add(subject.length until input.length)
         }
         return ranges
     }
