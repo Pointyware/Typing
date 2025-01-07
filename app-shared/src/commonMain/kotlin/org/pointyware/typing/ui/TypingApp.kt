@@ -2,15 +2,16 @@ package org.pointyware.typing.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 
 /**
  *
  */
 @Composable
 fun TypingApp(
-
+    navController: NavHostController
 ) {
-    // TODO: insert other screens with navigation
+
     TypingScreen(
         modifier = Modifier
     )
