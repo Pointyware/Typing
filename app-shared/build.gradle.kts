@@ -33,6 +33,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.coreUi)
+            api(projects.coreData)
 
             api(libs.compose.navigation)
         }
