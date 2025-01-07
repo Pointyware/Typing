@@ -4,6 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import org.pointyware.typing.data.TestSubjectProvider
+import org.pointyware.typing.data.TypingController
+import org.pointyware.typing.data.TypingControllerImpl
 import org.pointyware.typing.viewmodels.TypingViewModelImpl
 
 /**
@@ -14,7 +17,9 @@ fun TypingApp(
     navController: NavHostController
 ) {
     val viewModel = remember {
-        TypingViewModelImpl()
+        val subjectProvider = TestSubjectProvider("The quick brown fox jumps over the lazy dog.")
+        val controller = TypingControllerImpl(subjectProvider)
+        TypingViewModelImpl(controller)
     }
     TypingScreen(
         viewModel = viewModel,
