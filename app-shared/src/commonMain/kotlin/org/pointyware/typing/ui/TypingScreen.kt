@@ -2,6 +2,7 @@ package org.pointyware.typing.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -49,11 +50,11 @@ fun TypingView(
             }
         }
         Text(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.weight(1f).fillMaxWidth(),
             text = annotatedText,
         )
         TextField(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.weight(1f).fillMaxWidth(),
             value = state.progress.string,
             onValueChange = onInputChange,
             label = { Text("Type Here") }
