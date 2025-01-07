@@ -5,7 +5,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import org.pointyware.typing.data.TestSubjectProvider
-import org.pointyware.typing.data.TypingController
 import org.pointyware.typing.data.TypingControllerImpl
 import org.pointyware.typing.viewmodels.TypingViewModelImpl
 

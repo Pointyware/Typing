@@ -26,7 +26,8 @@ fun TypingScreen(
     val state by viewModel.state.collectAsState()
     TypingView(
         state = state,
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
+        onInputChange = viewModel::onInputChange
     )
 }
 
@@ -34,6 +35,7 @@ fun TypingScreen(
 fun TypingView(
     state: TypingUiState,
     modifier: Modifier = Modifier,
+    onInputChange: (String) -> Unit,
 ) {
     Column(
         modifier = modifier,
@@ -53,7 +55,7 @@ fun TypingView(
         TextField(
             modifier = Modifier.weight(1f),
             value = state.progress.string,
-            onValueChange = {},
+            onValueChange = onInputChange,
             label = { Text("Type Here") }
         )
     }

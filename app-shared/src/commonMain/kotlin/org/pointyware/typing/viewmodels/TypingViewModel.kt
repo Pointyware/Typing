@@ -3,10 +3,8 @@ package org.pointyware.typing.viewmodels
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import org.pointyware.typing.data.TypingController
@@ -17,6 +15,7 @@ interface TypingViewModel {
 
     fun onReset()
     fun onKeyStroke(key: Char)
+    fun onInputChange(input: String)
 }
 
 /**
@@ -49,5 +48,9 @@ class TypingViewModelImpl(
 
     override fun onKeyStroke(key: Char) {
         typingController.consume(key)
+    }
+
+    override fun onInputChange(input: String) {
+        typingController.setInput(input)
     }
 }
