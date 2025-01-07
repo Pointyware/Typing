@@ -38,7 +38,7 @@ class TypingViewModelImpl(
             )
         }.stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
+            started = SharingStarted.Eagerly,
             initialValue = TypingUiState.Empty
         )
 
