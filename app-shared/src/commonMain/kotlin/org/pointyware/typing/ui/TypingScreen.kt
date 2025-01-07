@@ -40,7 +40,7 @@ fun TypingView(
     ) {
         val annotatedText = remember(state.progress) {
             buildAnnotatedString {
-                append(state.progress.string)
+                append(state.subject)
                 state.progress.incorrect.forEach {
                     addStyle(style = SpanStyle(color = Color.Red), it.first, it.last)
                 }
@@ -52,7 +52,7 @@ fun TypingView(
         )
         TextField(
             modifier = Modifier.weight(1f),
-            value = "Typing Subject",
+            value = state.progress.string,
             onValueChange = {},
             label = { Text("Type Here") }
         )
