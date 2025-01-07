@@ -52,4 +52,32 @@ class TypingControllerTest {
         )
         assertEquals(expected, result)
     }
+
+    @Test
+    fun incorrect_input_should_generate_incorrect_ranges_2() {
+        /*
+        Given: the typing controller has a subject
+        And: the progress state is observed
+         */
+        subjectProvider.subject = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        controller.reset()
+        val progress = controller.progress
+
+        /*
+        When: the user types an incorrect character
+         */
+        "ZYXWVUTSRQPONMLKJIHGFEDCBA".forEach {
+            controller.consume(it)
+        }
+
+        /*
+        Then: the progress should contain the incorrect range
+         */
+        val result = progress.value
+        val expected = TypingProgress(
+            "ZYXWVUTSRQPONMLKJIHGFEDCBA",
+            listOf(0 until 26)
+        )
+        assertEquals(expected, result)
+    }
 }
