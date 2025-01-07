@@ -10,11 +10,14 @@ import kotlin.test.assertEquals
  */
 class TypingControllerTest {
 
+
+    private lateinit var subjectProvider: TestSubjectProvider
     private lateinit var controller: TypingController
 
     @BeforeTest
     fun setUp() {
-        controller = TypingControllerImpl()
+        subjectProvider = TestSubjectProvider("")
+        controller = TypingControllerImpl(subjectProvider)
     }
 
     @AfterTest
@@ -28,7 +31,8 @@ class TypingControllerTest {
         Given: the typing controller has a subject
         And: the progress state is observed
          */
-        val subject = "the quick brown fox jumped over the lazy dog"
+        subjectProvider.subject = "the quick brown fox jumped over the lazy dog"
+        controller.reset()
         val progress = controller.progress
 
         /*
