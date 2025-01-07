@@ -45,7 +45,7 @@ fun TypingView(
             buildAnnotatedString {
                 append(state.subject)
                 state.progress.incorrect.forEach {
-                    addStyle(style = SpanStyle(color = Color.Red), it.first, it.last)
+                    addStyle(style = SpanStyle(background = Color.Red), it.first, it.last)
                 }
             }
         }
