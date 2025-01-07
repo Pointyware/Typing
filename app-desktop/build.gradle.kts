@@ -15,6 +15,7 @@ dependencies {
     implementation(compose.material3AdaptiveNavigationSuite)
 
     implementation(compose.desktop.currentOs)
+    implementation(compose.components.uiToolingPreview)
 }
 
 application {
