@@ -31,7 +31,9 @@ interface TypingController {
     fun setInput(input: String)
 }
 
-class TypingControllerImpl(): TypingController {
+class TypingControllerImpl(
+    private val subjectProvider: SubjectProvider
+): TypingController {
 
     private val mutableSubject = MutableStateFlow("")
     override val subject: StateFlow<String>
@@ -52,7 +54,7 @@ class TypingControllerImpl(): TypingController {
     private var currentInput = ""
     override fun reset() {
         currentInput = ""
-        mutableSubject.update { "" }
+        mutableSubject.update { subjectProvider.nextSubject() }
         mutableProgress.update { TypingProgress("", emptyList()) }
         mutableTimeRemaining.update { 0f }
         mutableWpm.update { 0f }
