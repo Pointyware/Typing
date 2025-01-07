@@ -95,8 +95,3 @@ class TypingControllerImpl(
         return ranges
     }
 }
-
-data class TypingProgress(
-    val string: String,
-    val incorrect: List<IntRange>
-)
