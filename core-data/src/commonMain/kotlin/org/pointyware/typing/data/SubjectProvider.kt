@@ -10,13 +10,14 @@ interface SubjectProvider {
     fun nextSubject(): String
 }
 
+/**
+ * A subject provider that randomly selects a subject from a given list.
+ */
 class SubjectProviderImpl(
     val subjects: List<String>
 ): SubjectProvider {
     override fun nextSubject(): String {
-        Random.nextInt(subjects.indices).let {
-            return subjects[it]
-        }
+        return subjects[Random.nextInt(subjects.indices)]
     }
 }
 
