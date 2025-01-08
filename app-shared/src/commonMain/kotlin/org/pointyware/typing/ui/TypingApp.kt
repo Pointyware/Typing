@@ -21,6 +21,8 @@ fun TypingApp(
     navController: NavHostController
 ) {
 
+    // TODO: add scaffold
+
     NavHost(
         navController = navController,
         startDestination = Screen.Typing
