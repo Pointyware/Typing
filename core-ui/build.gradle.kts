@@ -38,6 +38,9 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
+        androidMain.dependencies {
+            implementation(libs.androidx.composePreview)
+        }
     }
 }
 
@@ -51,4 +54,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        compose = true
+    }
+}
+dependencies {
+    debugImplementation(libs.androidx.composeTooling)
 }
