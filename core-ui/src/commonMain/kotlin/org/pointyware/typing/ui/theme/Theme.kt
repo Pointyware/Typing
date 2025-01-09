@@ -17,3 +17,6 @@ fun TypingTheme(
         content = content
     )
 }
+
+object TypingTheme {
+}
