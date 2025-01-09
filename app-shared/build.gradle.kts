@@ -39,9 +39,15 @@ kotlin {
             api(libs.compose.navigation)
 
             implementation(libs.kotlinx.serialization.json)
+
+            implementation(compose.components.uiToolingPreview)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+
+        androidMain.dependencies {
+//            implementation()
         }
     }
 }
@@ -55,5 +61,8 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        compose = true
     }
 }

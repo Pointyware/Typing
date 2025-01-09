@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -15,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
+import org.pointyware.typing.viewmodels.TimerUiState
 import org.pointyware.typing.viewmodels.TypingUiState
 import org.pointyware.typing.viewmodels.TypingViewModel
 
@@ -30,7 +32,8 @@ fun TypingScreen(
     TypingView(
         state = state,
         modifier = modifier.fillMaxSize(),
-        onInputChange = viewModel::onInputChange
+        onInputChange = viewModel::onInputChange,
+        onReset = viewModel::onReset
     )
 }
 
@@ -39,11 +42,13 @@ fun TypingView(
     state: TypingUiState,
     modifier: Modifier = Modifier,
     onInputChange: (String) -> Unit,
+    onReset: () -> Unit,
 ) {
     Column(
         modifier = modifier,
     ) {
         Text("WPM: ${state.wpm}")
+        Timer(state.timerState)
         val annotatedText = remember(state.progress) {
             buildAnnotatedString {
                 append(state.subject)
@@ -66,5 +71,11 @@ fun TypingView(
             onValueChange = onInputChange,
             label = { Text("Type Here") }
         )
+        Button(
+            onClick = onReset,
+            enabled = state.timerState is TimerUiState.Running
+        ) {
+            Text("Reset")
+        }
     }
 }
