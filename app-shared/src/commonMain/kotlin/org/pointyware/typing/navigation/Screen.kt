@@ -1,5 +1,7 @@
 package org.pointyware.typing.navigation
 
+import kotlinx.serialization.Serializable
+
 /**
  */
 sealed interface Screen {
