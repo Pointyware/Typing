@@ -5,6 +5,7 @@ import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import androidx.navigation.compose.rememberNavController
 import org.pointyware.typing.ui.TypingApp
+import org.pointyware.typing.ui.theme.TypingTheme
 
 /**
  *
@@ -20,9 +21,11 @@ fun main(vararg args: String) = application {
         title = "Typing!",
         onCloseRequest = ::exitApplication
     ) {
-        TypingApp(
-            navController = navController
-        )
+        TypingTheme {
+            TypingApp(
+                navController = navController
+            )
+        }
     }
 
     // shutdown logic

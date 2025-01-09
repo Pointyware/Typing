@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.NavHostController
 import org.pointyware.typing.ui.TypingApp
+import org.pointyware.typing.ui.theme.TypingTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -12,7 +13,11 @@ class MainActivity : ComponentActivity() {
 
         val navController = NavHostController(this)
         setContent {
-            TypingApp(navController)
+            TypingTheme(
+                dynamicTheme = true,
+            ) {
+                TypingApp(navController)
+            }
         }
     }
 }
