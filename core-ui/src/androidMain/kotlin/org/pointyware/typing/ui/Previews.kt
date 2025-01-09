@@ -25,6 +25,7 @@ annotation class LightDarkModePreview
     name = "Small Phone - Light",
     group = "small-device",
     showBackground = true,
+    showSystemUi = true,
     uiMode = Configuration.UI_MODE_NIGHT_NO,
     widthDp = 250,
     heightDp = 400
@@ -33,6 +34,7 @@ annotation class LightDarkModePreview
     name = "Small Phone - Dark",
     group = "small-device",
     showBackground = true,
+    showSystemUi = true,
     uiMode = Configuration.UI_MODE_NIGHT_YES,
     widthDp = 250,
     heightDp = 400
@@ -41,6 +43,7 @@ annotation class LightDarkModePreview
     name = "Galaxy Z Fold 3 - Light",
     group = "tall-device",
     showBackground = true,
+    showSystemUi = true,
     uiMode = Configuration.UI_MODE_NIGHT_NO,
     widthDp = 906,
     heightDp = 1104
@@ -49,6 +52,7 @@ annotation class LightDarkModePreview
     name = "Galaxy Z Fold 3 - Dark",
     group = "tall-device",
     showBackground = true,
+    showSystemUi = true,
     uiMode = Configuration.UI_MODE_NIGHT_YES,
     widthDp = 906,
     heightDp = 1104
