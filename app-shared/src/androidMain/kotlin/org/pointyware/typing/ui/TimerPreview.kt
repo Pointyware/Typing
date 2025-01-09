@@ -10,7 +10,38 @@ import org.pointyware.typing.viewmodels.TimerUiState
  */
 @LightDarkModePreview
 @Composable
-fun TimerPreview(
+fun StoppedTimerPreview(
+    modifier: Modifier = Modifier,
+) {
+    Surface {
+        TypingTheme {
+            Timer(
+                state = TimerUiState.Stopped
+            )
+        }
+    }
+}
+/**
+ */
+@LightDarkModePreview
+@Composable
+fun HiddenTimerPreview(
+    modifier: Modifier = Modifier,
+) {
+    Surface {
+        TypingTheme {
+            Timer(
+                state = TimerUiState.Hidden
+            )
+        }
+    }
+}
+
+/**
+ */
+@LightDarkModePreview
+@Composable
+fun RunningTimerPreview(
     modifier: Modifier = Modifier,
 ) {
     Surface {
