@@ -1,4 +1,4 @@
-package org.pointyware.typing.android
+package org.pointyware.typing.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
