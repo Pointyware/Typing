@@ -39,15 +39,13 @@ kotlin {
             api(libs.compose.navigation)
 
             implementation(libs.kotlinx.serialization.json)
-
-            implementation(compose.components.uiToolingPreview)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
 
         androidMain.dependencies {
-//            implementation()
+            implementation(libs.androidx.composePreview)
         }
     }
 }
