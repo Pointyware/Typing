@@ -15,7 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.unit.dp
+import org.pointyware.typing.ui.theme.TypingTheme
+import org.pointyware.typing.ui.theme.mediumPadding
 import org.pointyware.typing.viewmodels.TimerUiState
 import org.pointyware.typing.viewmodels.TypingUiState
 import org.pointyware.typing.viewmodels.TypingViewModel
@@ -61,7 +62,7 @@ fun TypingView(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(TypingTheme.mediumPadding)
             ,
             text = annotatedText,
         )
