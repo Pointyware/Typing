@@ -4,6 +4,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 
 /**
  *
@@ -19,6 +21,11 @@ interface TypingController {
      * Reset the controller state.
      */
     fun reset()
+
+    /**
+     * Start tracking typing progress.
+     */
+    fun start()
 
     /**
      * Process a key stroke.
@@ -39,7 +46,7 @@ class TypingControllerImpl(
     override val subject: StateFlow<String>
         get() = mutableSubject.asStateFlow()
 
-    private val mutableProgress = MutableStateFlow(TypingProgress("", emptyList()))
+    private val mutableProgress = MutableStateFlow(TypingProgress("", emptyList(), 0f, 0f))
     override val progress: StateFlow<TypingProgress>
         get() = mutableProgress.asStateFlow()
 
@@ -55,9 +62,14 @@ class TypingControllerImpl(
     override fun reset() {
         currentInput = ""
         mutableSubject.update { subjectProvider.nextSubject() }
-        mutableProgress.update { TypingProgress("", emptyList()) }
+        mutableProgress.update { TypingProgress("", emptyList(), 0f, 1f) }
         mutableTimeRemaining.update { 0f }
         mutableWpm.update { 0f }
+    }
+
+    private var timeStarted: Instant? = null
+    override fun start() {
+        timeStarted = Clock.System.now()
     }
 
     override fun consume(key: Char) {
@@ -67,10 +79,21 @@ class TypingControllerImpl(
 
     override fun setInput(input: String) {
         currentInput = input
+        val wpm = timeStarted?.let {
+            val elapsed = Clock.System.now() - it
+            val minutes = elapsed.inWholeMilliseconds / 60.0e3f
+            val words = input.length / 5f
+            words / minutes
+        } ?: 0f
+        val mismatchedRanges = findMismatchedRanges(subject.value, input)
+        val missedCharacters = mismatchedRanges.sumOf { it.count() }
+        val accuracy = 1f - missedCharacters / subject.value.length.toFloat()
         mutableProgress.update {
             TypingProgress(
                 input,
-                findMismatchedRanges(subject.value, input)
+                mismatchedRanges,
+                wpm,
+                accuracy
             )
         }
     }
