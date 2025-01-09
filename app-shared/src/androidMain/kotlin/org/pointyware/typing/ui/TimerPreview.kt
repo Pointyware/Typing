@@ -4,6 +4,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import org.pointyware.typing.ui.theme.TypingTheme
 import org.pointyware.typing.viewmodels.TimerUiState
 
 /**
@@ -14,10 +15,12 @@ fun TimerPreview(
     modifier: Modifier = Modifier,
 ) {
     Surface {
-        Timer(
-            state = TimerUiState.Running(
-                timeRemaining = 1000
+        TypingTheme {
+            Timer(
+                state = TimerUiState.Running(
+                    timeRemaining = 1000
+                )
             )
-        )
+        }
     }
 }
