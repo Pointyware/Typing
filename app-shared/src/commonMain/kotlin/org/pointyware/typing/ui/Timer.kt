@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import org.pointyware.typing.viewmodels.TimerUiState
 
 /**
- *
+ * Displays the time remaining if enabled; otherwise, displays a placeholder.
  */
 @Composable
 fun Timer(
