@@ -25,6 +25,7 @@ annotation class LightDarkModePreview
  */
 @Preview(
     name = "Small Phone - Light",
+    group = "small-device",
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_NO,
     widthDp = 250,
@@ -32,6 +33,7 @@ annotation class LightDarkModePreview
 )
 @Preview(
     name = "Small Phone - Dark",
+    group = "small-device",
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_YES,
     widthDp = 250,
@@ -39,6 +41,7 @@ annotation class LightDarkModePreview
 )
 @Preview(
     name = "Galaxy Z Fold 3 - Light",
+    group = "tall-device",
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_NO,
     widthDp = 906,
@@ -46,6 +49,7 @@ annotation class LightDarkModePreview
 )
 @Preview(
     name = "Galaxy Z Fold 3 - Dark",
+    group = "tall-device",
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_YES,
     widthDp = 906,
@@ -53,6 +57,7 @@ annotation class LightDarkModePreview
 )
 @Preview(
     name = "Desktop - Light",
+    group = "large-device",
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_NO,
     widthDp = 1920,
@@ -60,6 +65,7 @@ annotation class LightDarkModePreview
 )
 @Preview(
     name = "Desktop - Dark",
+    group = "large-device",
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_YES,
     widthDp = 1920,
