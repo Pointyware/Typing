@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.toRoute
 import org.pointyware.typing.data.TestSubjectProvider
 import org.pointyware.typing.data.TypingControllerImpl
 import org.pointyware.typing.navigation.Screen
