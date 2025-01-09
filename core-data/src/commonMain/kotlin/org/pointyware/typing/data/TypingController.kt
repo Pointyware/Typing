@@ -23,7 +23,8 @@ interface TypingController {
     fun reset()
 
     /**
-     * Start tracking typing progress.
+     * Start tracking typing progress. If tracking is already started, does nothing. [reset] must be
+     * called first to mark a new start time.
      */
     fun start()
 
@@ -61,6 +62,7 @@ class TypingControllerImpl(
     private var currentInput = ""
     override fun reset() {
         currentInput = ""
+        timeStarted = null
         mutableSubject.update { subjectProvider.nextSubject() }
         mutableProgress.update { TypingProgress("", emptyList(), 0f, 1f) }
         mutableTimeRemaining.update { 0f }
@@ -69,7 +71,9 @@ class TypingControllerImpl(
 
     private var timeStarted: Instant? = null
     override fun start() {
-        timeStarted = Clock.System.now()
+        if (timeStarted == null) {
+            timeStarted = Clock.System.now()
+        }
     }
 
     override fun consume(key: Char) {

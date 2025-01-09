@@ -47,10 +47,12 @@ class TypingViewModelImpl(
     }
 
     override fun onKeyStroke(key: Char) {
+        typingController.start()
         typingController.consume(key)
     }
 
     override fun onInputChange(input: String) {
+        typingController.start()
         typingController.setInput(input)
     }
 }
