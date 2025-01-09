@@ -37,7 +37,6 @@ uiTestJunit4 = "1.7.6"
 uiToolingPreview = "1.7.6"
 
 [libraries]
-android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
 androidx-composeManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidx-compose-ui" }
 androidx-composeMaterial3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
@@ -89,6 +88,9 @@ sqlDelight-android = { module = "app.cash.sqldelight:android-driver", version.re
 sqlDelight-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
 sqlDelight-jvm = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqlDelight" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
+
+# Plugin APIs for custom Build Logic
+android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 
 [plugins]
 androidApplication  = { id = "com.android.application", version.ref = "agp" }
