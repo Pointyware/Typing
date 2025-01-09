@@ -64,3 +64,7 @@ android {
         compose = true
     }
 }
+
+dependencies {
+    debugImplementation(libs.androidx.composeTooling)
+}
