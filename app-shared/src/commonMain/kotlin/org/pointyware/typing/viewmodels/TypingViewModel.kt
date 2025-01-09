@@ -32,7 +32,7 @@ class TypingViewModelImpl(
             TypingUiState(
                 subject = subject,
                 progress = progress,
-                wpm = 0f,
+                wpm = progress.wpm,
                 timerState = TimerUiState.Hidden,
                 loadingState = LoadingState.Idle,
             )
