@@ -48,7 +48,7 @@ fun TypingView(
     Column(
         modifier = modifier,
     ) {
-        Text("WPM: ${state.wpm}")
+        Text("WPM: ${state.progress.wpm}")
         Timer(state.timerState)
         val annotatedText = remember(state.progress) {
             buildAnnotatedString {
