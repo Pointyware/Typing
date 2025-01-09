@@ -16,7 +16,7 @@ data class TypingUiState(
     companion object {
         val Empty = TypingUiState(
             subject = "",
-            progress = TypingProgress("", emptyList()),
+            progress = TypingProgress("", emptyList(), 0f, 0f),
             wpm = 0.0f,
             timerState = TimerUiState.Stopped,
             loadingState = LoadingState.Idle,
