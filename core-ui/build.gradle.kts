@@ -46,7 +46,7 @@ kotlin {
 
 android {
     namespace = "org.pointyware.typing.ui"
-    compileSdk = 34
+    compileSdk = 35
     defaultConfig {
         minSdk = 24
     }
