@@ -1,0 +1,56 @@
+name: Distribution Process
+run-name: Assemble and Test Release Bundle `${{ github.head_ref }}` by @${{ github.actor }}
+
+on:
+  manual_dispatch:
+
+jobs:
+  build-app-android:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Setup
+        uses: Pointyware/.github/.github/actions/checkout-java-gradle@b70bbae19637171d6cf9311f06a59f1c15e2598b
+      - name: Build Android
+        run: |
+          ${{ secrets.KEYSTORE }} > base64 --decode > app-android/keystore.jks
+          ./gradlew :app-android:bundleRelease \
+            :app-android:testReleaseUnitTest \
+            -Pgithub.user=${{ secrets.BUILD_USER }} \
+            -Pgithub.token=${{ secrets.BUILD_TOKEN }} \
+            -Pkeystore.password=${{ secrets.KEYSTORE_PASSWORD }} \
+            -Pkeystore.alias=${{ secrets.KEYSTORE_ALIAS }} \
+            -Pkeystore.alias_password=${{ secrets.KEYSTORE_ALIAS_PASSWORD }}
+
+#  build-app-ios:
+#    if: github.event.pull_request.draft == false && false
+#    runs-on: macos-14
+#    steps:
+#      - name: Setup
+#        uses: Pointyware/.github/.github/actions/checkout-java-gradle@b70bbae19637171d6cf9311f06a59f1c15e2598b
+#      - name: Build iOS
+#        run: ./gradlew :app-ios:assemble -Pgithub.user=${{ secrets.BUILD_USER }} -Pgithub.token=${{ secrets.BUILD_TOKEN }}
+#      - name: Test iOS
+#        run: ./gradlew testios -Pgithub.user=${{ secrets.BUILD_USER }} -Pgithub.token=${{ secrets.BUILD_TOKEN }}
+#
+#  build-app-desktop:
+#    if: github.event.pull_request.draft == false
+#    runs-on: ubuntu-22.04
+#    steps:
+#      - name: Setup
+#        uses: Pointyware/.github/.github/actions/checkout-java-gradle@b70bbae19637171d6cf9311f06a59f1c15e2598b
+#      - name: Build Desktop
+#        run: ./gradlew :app-desktop:assemble -Pgithub.user=${{ secrets.BUILD_USER }} -Pgithub.token=${{ secrets.BUILD_TOKEN }}
+#      - name: Test Desktop
+#        run: ./gradlew desktopTest -Pgithub.user=${{ secrets.BUILD_USER }} -Pgithub.token=${{ secrets.BUILD_TOKEN }}
+#
+#  build-app-browser:
+#    if: github.event.pull_request.draft == false && false
+#    runs-on: ubuntu-22.04
+#    steps:
+#      - name: Setup
+#        uses: Pointyware/.github/.github/actions/checkout-java-gradle@b70bbae19637171d6cf9311f06a59f1c15e2598b
+#      - name: Build Browser
+#        run: ./gradlew :app-browser:assemble -Pgithub.user=${{ secrets.BUILD_USER }} -Pgithub.token=${{ secrets.BUILD_TOKEN }}
+#      - name: Test Browser
+#        run: ./gradlew jsBrowserTest -Pgithub.user=${{ secrets.BUILD_USER }} -Pgithub.token=${{ secrets.BUILD_TOKEN }}
