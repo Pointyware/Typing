@@ -22,9 +22,24 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    signingConfigs {
+        create("release") {
+            storeFile = file("keystore.jks")
+            storePassword = providers.gradleProperty("keystore.password").getOrElse("no-pass")
+            keyAlias = providers.gradleProperty("keystore.alias").getOrElse("no-alias")
+            keyPassword = providers.gradleProperty("keystore.alias_password").getOrElse("no-alias-password")
+        }
+    }
     buildTypes {
-        getByName("release") {
+        getByName("debug") {
             isMinifyEnabled = false
+        }
+        getByName("release") {
+            isMinifyEnabled = true
+            signingConfig = signingConfigs.getByName("release")
+            proguardFiles.add(
+                file("proguard-rules.pro")
+            )
         }
     }
     compileOptions {
