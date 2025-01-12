@@ -18,7 +18,7 @@ jobs:
             :app-android:testReleaseUnitTest \
             -Pgithub.user=${{ secrets.BUILD_USER }} \
             -Pgithub.token=${{ secrets.BUILD_TOKEN }} \
-            -Pkeystore.password=${{ secrets.KEYSTORE_PASSWORD }} \
+            -Pkeystore.password=${{ secrets.KEYSTORE_PASS }} \
             -Pkeystore.alias=${{ secrets.KEYSTORE_ALIAS }} \
             -Pkeystore.alias_password=${{ secrets.KEYSTORE_ALIAS_PASSWORD }}
 
