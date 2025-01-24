@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import org.pointyware.typing.data.TestSubjectProvider
 import org.pointyware.typing.data.TypingControllerImpl
 import org.pointyware.typing.navigation.Screen
+import org.pointyware.typing.typing.GrimmSubjectProvider
 import org.pointyware.typing.viewmodels.TypingViewModelImpl
 
 /**
@@ -34,7 +35,7 @@ fun TypingApp(
         }
         composable<Screen.Typing> {
             val viewModel = remember {
-                val subjectProvider = TestSubjectProvider("The quick brown fox jumps over the lazy dog.")
+                val subjectProvider = GrimmSubjectProvider()
                 val controller = TypingControllerImpl(subjectProvider)
                 controller.reset()
                 TypingViewModelImpl(controller)

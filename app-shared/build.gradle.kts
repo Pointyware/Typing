@@ -35,6 +35,7 @@ kotlin {
         commonMain.dependencies {
             api(projects.coreUi)
             api(projects.coreData)
+            api(projects.featureTyping)
 
             api(libs.compose.navigation)
 
