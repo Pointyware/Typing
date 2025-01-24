@@ -39,6 +39,8 @@ kotlin {
             api(libs.compose.navigation)
 
             implementation(libs.kotlinx.serialization.json)
+
+            implementation(compose.components.resources)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -67,4 +69,10 @@ android {
 
 dependencies {
     debugImplementation(libs.androidx.composeTooling)
+}
+
+compose.resources {
+    generateResClass = always
+    publicResClass = true
+    packageOfResClass = "org.pointyware.typing.typing"
 }
