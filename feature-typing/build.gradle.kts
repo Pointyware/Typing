@@ -39,6 +39,8 @@ kotlin {
             api(libs.compose.navigation)
 
             implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kotlinx.io.core)
+            implementation(libs.kotlinx.io.bytestring)
 
             implementation(compose.components.resources)
         }
