@@ -40,6 +40,8 @@ kotlin {
             api(libs.compose.navigation)
 
             implementation(libs.kotlinx.serialization.json)
+
+            implementation(compose.components.resources)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
