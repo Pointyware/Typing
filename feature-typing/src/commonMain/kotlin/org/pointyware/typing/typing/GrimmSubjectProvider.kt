@@ -3,6 +3,7 @@ package org.pointyware.typing.typing
 import kotlinx.io.Buffer
 import kotlinx.io.files.Path
 import kotlinx.io.files.SystemFileSystem
+import kotlinx.io.readString
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -24,11 +25,12 @@ class GrimmSubjectProvider: SubjectProvider {
 
     @OptIn(ExperimentalResourceApi::class)
     private fun loadStory() {
-        val storyFile = Res.getUri("files/grimm-stories.json")
-        val source = SystemFileSystem.source(Path(storyFile))
+        val storyUri = Res.getUri("files/grimm-stories.json")
+        val storyPath = storyUri.substringAfter("file:")
+        val source = SystemFileSystem.source(Path(storyPath))
         val readBuffer = Buffer()
         source.readAtMostTo(readBuffer, Long.MAX_VALUE)
-        val storyString = readBuffer.toString()
+        val storyString = readBuffer.readString()
 
         val story = Json.decodeFromString<JsonStory>(storyString)
         storyQueue.addAll(story.paragraphs)
