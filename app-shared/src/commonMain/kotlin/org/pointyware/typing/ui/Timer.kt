@@ -10,6 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
+import org.pointyware.typing.typing.Res
+import org.pointyware.typing.typing.label_timer_hidden
+import org.pointyware.typing.typing.label_timer_stopped
 import org.pointyware.typing.viewmodels.TimerUiState
 
 /**
@@ -32,7 +36,7 @@ fun Timer(
         when (state) {
             TimerUiState.Hidden -> {
                 // no op
-                Text("Time Hidden")
+                Text(text = stringResource(Res.string.label_timer_hidden))
             }
 
             is TimerUiState.Running -> {
@@ -40,7 +44,7 @@ fun Timer(
             }
 
             TimerUiState.Stopped -> {
-                Text("--")
+                Text(text = stringResource(Res.string.label_timer_stopped))
             }
         }
     }
