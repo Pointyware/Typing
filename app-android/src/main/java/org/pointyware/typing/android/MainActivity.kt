@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.NavHostController
+import org.pointyware.typing.typing.GrimmSubjectProvider
 import org.pointyware.typing.ui.TypingApp
 import org.pointyware.typing.ui.theme.TypingTheme
 
@@ -16,7 +17,10 @@ class MainActivity : ComponentActivity() {
             TypingTheme(
                 dynamicTheme = true,
             ) {
-                TypingApp(navController)
+                TypingApp(
+                    GrimmSubjectProvider(Res.getUri("files/android-story.json")),
+                    navController
+                )
             }
         }
     }

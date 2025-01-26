@@ -12,7 +12,9 @@ import org.pointyware.typing.data.SubjectProvider
 /**
  * Retrieves a Brothers Grimm fairy tale as the subject for the user to type.
  */
-class GrimmSubjectProvider: SubjectProvider {
+class GrimmSubjectProvider(
+    val storyUriString: String
+): SubjectProvider {
 
     private var storyQueue = mutableListOf<String>()
 
@@ -23,10 +25,8 @@ class GrimmSubjectProvider: SubjectProvider {
         return storyQueue.removeAt(0)
     }
 
-    @OptIn(ExperimentalResourceApi::class)
     private fun loadStory() {
-        val storyUri = Res.getUri("files/grimm-stories.json")
-        val storyPath = storyUri.substringAfter("file:")
+        val storyPath = storyUriString.substringAfter("file:")
         val source = SystemFileSystem.source(Path(storyPath))
         val readBuffer = Buffer()
         source.readAtMostTo(readBuffer, Long.MAX_VALUE)
