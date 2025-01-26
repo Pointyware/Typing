@@ -22,13 +22,15 @@ dependencies {
     implementation(compose.components.uiToolingPreview)
 }
 
-compose.desktop {
-    application {
-        mainClass = "org.pointyware.typing.desktop.ApplicationKt"
+compose {
+    desktop {
+        application {
+            mainClass = "org.pointyware.typing.desktop.ApplicationKt"
+        }
     }
-}
-compose.resources {
-    generateResClass = always
-    publicResClass = true
-    packageOfResClass = "org.pointyware.typing.desktop"
+    resources {
+        generateResClass = always
+        publicResClass = true
+        packageOfResClass = "org.pointyware.typing.desktop"
+    }
 }
