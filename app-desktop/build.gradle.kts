@@ -1,25 +1,39 @@
 plugins {
-    alias(libs.plugins.kotlinJvm)
+//    alias(libs.plugins.kotlinJvm)
+    alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.compose.compiler)
     publishing
 }
 
-dependencies {
-    implementation(projects.appShared)
-    implementation(projects.featureTyping)
+kotlin {
+    jvm()
 
-    implementation(libs.compose.navigation)
-    implementation(libs.kotlinx.coroutinesSwing)
+    sourceSets {
+        val jvmMain by getting {
+            dependencies {
+                implementation(projects.appShared)
+                implementation(projects.featureTyping)
 
-    implementation(compose.ui)
-    implementation(compose.material3)
-    implementation(compose.materialIconsExtended)
-    implementation(compose.material3AdaptiveNavigationSuite)
-    implementation(compose.components.resources)
+                implementation(libs.compose.navigation)
+                implementation(libs.kotlinx.coroutinesSwing)
 
-    implementation(compose.desktop.currentOs)
-    implementation(compose.components.uiToolingPreview)
+                implementation(compose.ui)
+                implementation(compose.material3)
+                implementation(compose.materialIconsExtended)
+                implementation(compose.material3AdaptiveNavigationSuite)
+                implementation(compose.components.resources)
+
+                implementation(compose.desktop.currentOs)
+                implementation(compose.components.uiToolingPreview)
+            }
+        }
+        val jvmTest by getting {
+            dependencies {
+
+            }
+        }
+    }
 }
 
 compose {
