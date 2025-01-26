@@ -22,6 +22,9 @@ dependencies {
     implementation(compose.components.uiToolingPreview)
 }
 
-application {
-    mainClass = "org.pointyware.typing.desktop.ApplicationKt"
+compose.desktop {
+    application {
+        mainClass = "org.pointyware.typing.desktop.ApplicationKt"
+    }
+
 }
