@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.compose.compiler)
 }
 
@@ -58,4 +59,12 @@ dependencies {
     implementation(libs.androidx.composeMaterial3)
     implementation(libs.androidx.activityCompose)
     debugImplementation(libs.androidx.composeTooling)
+
+    implementation(compose.components.resources)
+}
+
+compose.resources {
+    generateResClass = always
+    publicResClass = true
+    packageOfResClass = "org.pointyware.typing.android"
 }
