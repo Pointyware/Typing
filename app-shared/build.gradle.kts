@@ -71,3 +71,9 @@ android {
 dependencies {
     debugImplementation(libs.androidx.composeTooling)
 }
+
+compose.resources {
+    generateResClass = always
+    publicResClass = true
+    packageOfResClass = "org.pointyware.typing.shared"
+}
