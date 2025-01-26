@@ -26,5 +26,9 @@ compose.desktop {
     application {
         mainClass = "org.pointyware.typing.desktop.ApplicationKt"
     }
-
+}
+compose.resources {
+    generateResClass = always
+    publicResClass = true
+    packageOfResClass = "org.pointyware.typing.desktop"
 }
