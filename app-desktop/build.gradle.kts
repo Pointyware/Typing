@@ -7,6 +7,7 @@ plugins {
 
 dependencies {
     implementation(projects.appShared)
+    implementation(projects.featureTyping)
 
     implementation(libs.compose.navigation)
     implementation(libs.kotlinx.coroutinesSwing)
