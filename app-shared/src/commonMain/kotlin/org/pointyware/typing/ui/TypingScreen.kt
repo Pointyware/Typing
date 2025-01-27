@@ -73,8 +73,7 @@ fun TypingView(
             label = { Text("Type Here") }
         )
         Button(
-            onClick = onReset,
-            enabled = state.timerState is TimerUiState.Running
+            onClick = onReset
         ) {
             Text("Reset")
         }
