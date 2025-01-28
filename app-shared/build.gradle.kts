@@ -42,13 +42,16 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
 
             implementation(compose.components.resources)
+            implementation(libs.koin.core)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation(libs.koin.test)
         }
 
         androidMain.dependencies {
             implementation(libs.androidx.composePreview)
+            implementation(libs.koin.android)
         }
     }
 }

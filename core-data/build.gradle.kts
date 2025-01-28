@@ -32,9 +32,12 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.kotlinx.coroutines)
             implementation(libs.kotlinx.dateTime)
+
+            implementation(libs.koin.core)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation(libs.koin.test)
         }
     }
 }

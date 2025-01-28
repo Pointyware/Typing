@@ -5,6 +5,8 @@ import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import androidx.navigation.compose.rememberNavController
 import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.koin.core.context.startKoin
+import org.pointyware.typing.di.sharedAppModule
 import org.pointyware.typing.typing.GrimmSubjectProvider
 import org.pointyware.typing.ui.TypingApp
 import org.pointyware.typing.ui.theme.TypingTheme
@@ -16,7 +18,11 @@ import org.pointyware.typing.ui.theme.TypingTheme
 fun main(vararg args: String) = application {
     // startup logic
 
-
+    startKoin {
+        modules(
+            sharedAppModule()
+        )
+    }
 
     val navController = rememberNavController()
 
