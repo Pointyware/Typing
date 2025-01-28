@@ -16,6 +16,8 @@ import org.pointyware.typing.ui.theme.TypingTheme
 fun main(vararg args: String) = application {
     // startup logic
 
+
+
     val navController = rememberNavController()
 
     val windowState = rememberWindowState()

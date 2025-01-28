@@ -26,11 +26,13 @@ kotlin {
 
                 implementation(compose.desktop.currentOs)
                 implementation(compose.components.uiToolingPreview)
+
+                implementation(libs.koin.core)
             }
         }
         val jvmTest by getting {
             dependencies {
-
+                implementation(libs.koin.test)
             }
         }
     }

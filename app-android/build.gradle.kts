@@ -30,6 +30,14 @@ kotlin {
                 implementation(libs.androidx.activityCompose)
 
                 implementation(compose.components.resources)
+
+                implementation(libs.koin.android)
+            }
+        }
+
+        val androidUnitTest by getting {
+            dependencies {
+                implementation(libs.koin.test)
             }
         }
     }
