@@ -43,6 +43,7 @@ kotlin {
             implementation(libs.kotlinx.io.bytestring)
 
             implementation(compose.components.resources)
+            implementation(libs.koin.core)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

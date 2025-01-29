@@ -43,8 +43,6 @@ kotlin {
         }
         androidMain.dependencies {
             implementation(libs.androidx.composePreview)
-
-            implementation(libs.koin.android)
         }
     }
 }
