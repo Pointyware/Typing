@@ -21,6 +21,9 @@ class SubjectProviderImpl(
     }
 }
 
+/**
+ * A subject provider with an externally mutable subject.
+ */
 data class TestSubjectProvider(
     var subject: String
 ): SubjectProvider {
