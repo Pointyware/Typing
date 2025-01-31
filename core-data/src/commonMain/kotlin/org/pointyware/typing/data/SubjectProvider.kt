@@ -4,7 +4,7 @@ import kotlin.random.Random
 import kotlin.random.nextInt
 
 /**
- *
+ * Provides blocks of text intended to be used as subjects for typing practice.
  */
 interface SubjectProvider {
     fun nextSubject(): String
