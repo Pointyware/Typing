@@ -1,5 +1,6 @@
 package org.pointyware.typing.viewmodels
 
+import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -23,7 +24,7 @@ interface TypingViewModel {
  */
 class TypingViewModelImpl(
     private val typingController: TypingController
-): TypingViewModel {
+) : ViewModel(), TypingViewModel {
 
     private val viewModelScope = CoroutineScope(Dispatchers.Main.immediate + SupervisorJob())
 
