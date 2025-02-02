@@ -34,7 +34,6 @@ fun main(vararg args: String) = application {
     ) {
         TypingTheme {
             TypingApp(
-                GrimmSubjectProvider(Res.getUri("files/desktop-stories.json")),
                 navController = navController
             )
         }

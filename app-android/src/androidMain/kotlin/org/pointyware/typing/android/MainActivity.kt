@@ -20,7 +20,6 @@ class MainActivity : ComponentActivity() {
                 dynamicTheme = true,
             ) {
                 TypingApp(
-                    GrimmSubjectProvider(Res.getUri("files/android-story.json")),
                     navController
                 )
             }
