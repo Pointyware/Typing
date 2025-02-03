@@ -8,7 +8,7 @@ import org.pointyware.typing.typing.GrimmSubjectProvider
 import org.pointyware.typing.typing.Res
 
 
-internal val stories_uri = named("stories-uri")
+val stories_uri = named("stories-uri")
 
 /**
  *
