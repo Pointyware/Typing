@@ -3,11 +3,12 @@ package org.pointyware.typing.ui
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import org.koin.mp.KoinPlatform.getKoin
 import org.pointyware.typing.navigation.Screen
+import org.pointyware.typing.viewmodels.TypingViewModel
 import org.pointyware.typing.viewmodels.TypingViewModelImpl
 
 /**
@@ -31,7 +32,8 @@ fun TypingApp(
             Text("Settings")
         }
         composable<Screen.Typing> {
-            val viewModel = viewModel<TypingViewModelImpl>()
+            val koin = getKoin()
+            val viewModel = koin.get<TypingViewModel>()
             TypingScreen(
                 viewModel = viewModel,
                 modifier = Modifier

@@ -42,6 +42,7 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
 
             implementation(compose.components.resources)
+            implementation(compose.material3AdaptiveNavigationSuite)
             implementation(libs.koin.core)
         }
         commonTest.dependencies {
@@ -51,6 +52,7 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.androidx.composePreview)
+            implementation(libs.koin.android)
         }
     }
 }
