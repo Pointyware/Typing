@@ -9,7 +9,6 @@ import androidx.navigation.compose.composable
 import org.koin.mp.KoinPlatform.getKoin
 import org.pointyware.typing.navigation.Screen
 import org.pointyware.typing.viewmodels.TypingViewModel
-import org.pointyware.typing.viewmodels.TypingViewModelImpl
 
 /**
  *

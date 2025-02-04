@@ -1,5 +1,6 @@
 package org.pointyware.typing.ui
 
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -70,10 +71,12 @@ fun TypingView(
             modifier = Modifier.weight(1f).fillMaxWidth(),
             value = state.progress.string,
             onValueChange = onInputChange,
-            label = { Text("Type Here") }
+            label = { Text("Type Here") },
+            singleLine = false,
         )
         Button(
-            onClick = onReset
+            onClick = onReset,
+            modifier = Modifier.focusable()
         ) {
             Text("Reset")
         }
