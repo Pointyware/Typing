@@ -89,7 +89,7 @@ class TypingControllerImpl(
             val words = input.length / 5f
             words / minutes
         } ?: 0f
-        val mismatchedRanges = findMismatchedRanges(subject.value, input)
+        val mismatchedRanges = findMismatchedRangesForSubject(subject.value, input)
         val missedCharacters = mismatchedRanges.sumOf { it.count() }
         val accuracy = 1f - missedCharacters / subject.value.length.toFloat()
         mutableProgress.update {
@@ -102,7 +102,7 @@ class TypingControllerImpl(
         }
     }
 
-    private fun findMismatchedRanges(subject: String, input: String): List<IntRange> {
+    private fun findMismatchedRangesForSubject(subject: String, input: String): MutableList<IntRange> {
         val ranges = mutableListOf<IntRange>()
         var position = 0
         val maxLength = minOf(subject.length, input.length)
@@ -117,9 +117,14 @@ class TypingControllerImpl(
                 position++
             }
         }
-        if (input.length > subject.length) {
-            ranges.add(subject.length until input.length)
-        }
         return ranges
+    }
+
+    private fun findMismatchedRangesForInput(subject: String, input: String): MutableList<IntRange> {
+        val mismatchedRanges = findMismatchedRangesForSubject(subject, input)
+        if (input.length > subject.length) {
+            mismatchedRanges.add(subject.length until input.length)
+        }
+        return mismatchedRanges
     }
 }
