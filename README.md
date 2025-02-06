@@ -4,11 +4,11 @@ This project was started because the typing practice services I've tried all ann
 ## Modes of Entry
 Each mode of entry allows the following options.
 
-| Option      | Values    | Description                                                                    |
-|-------------|-----------|--------------------------------------------------------------------------------|
-| Feedback    | On, Off   | Controls whether mismatched characters are displayed as feedback for the user. |
-| Termination | Length, ? | Controls how text entry is terminated.                                         |
-|             |           |                                                                                |
+| Option      | Values           | Description                                                                    |
+|-------------|------------------|--------------------------------------------------------------------------------|
+| Feedback    | On, Off          | Controls whether mismatched characters are displayed as feedback for the user. |
+| Termination | Length, EnterKey | Controls how text entry is terminated.                                         |
+|             |                  |                                                                                |
 
 
 ### Single Word
