@@ -16,6 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import org.jetbrains.compose.resources.stringResource
+import org.pointyware.typing.shared.Res
+import org.pointyware.typing.shared.label_wpm
 import org.pointyware.typing.ui.theme.TypingTheme
 import org.pointyware.typing.ui.theme.mediumPadding
 import org.pointyware.typing.viewmodels.TimerUiState
@@ -49,7 +52,7 @@ fun TypingView(
     Column(
         modifier = modifier,
     ) {
-        Text("WPM: ${state.progress.wpm}")
+        Text(text = stringResource(Res.string.label_wpm, state.progress.wpm))
         Timer(state.timerState)
         val annotatedText = remember(state.progress) {
             buildAnnotatedString {
