@@ -1,13 +1,10 @@
 package org.pointyware.typing.ui
 
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -19,9 +16,9 @@ import androidx.compose.ui.text.buildAnnotatedString
 import org.jetbrains.compose.resources.stringResource
 import org.pointyware.typing.shared.Res
 import org.pointyware.typing.shared.label_wpm
+import org.pointyware.typing.typing.ui.TypingField
 import org.pointyware.typing.ui.theme.TypingTheme
 import org.pointyware.typing.ui.theme.mediumPadding
-import org.pointyware.typing.viewmodels.TimerUiState
 import org.pointyware.typing.viewmodels.TypingUiState
 import org.pointyware.typing.viewmodels.TypingViewModel
 
@@ -70,18 +67,18 @@ fun TypingView(
             ,
             text = annotatedText,
         )
-        TextField(
+        TypingField(
+            content = state.progress.string,
             modifier = Modifier.weight(1f).fillMaxWidth(),
-            value = state.progress.string,
-            onValueChange = onInputChange,
-            label = { Text("Type Here") },
-            singleLine = false,
+            onCodePoint = { codePoint ->
+                onInputChange(state.progress.string + codePoint.toChar())
+            },
+            onDelete = {
+                onInputChange(state.progress.string.dropLast(1))
+            },
+            onEnter = {
+                onReset()
+            },
         )
-        Button(
-            onClick = onReset,
-            modifier = Modifier.focusable()
-        ) {
-            Text("Reset")
-        }
     }
 }
