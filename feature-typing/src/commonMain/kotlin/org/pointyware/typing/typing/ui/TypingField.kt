@@ -35,7 +35,7 @@ fun TypingField(
     ) {
         Text(
             text = content,
-            modifier = modifier
+            modifier = Modifier
                 .onKeyEvent { event ->
                     when {
                         event.type == KeyEventType.KeyDown -> {
