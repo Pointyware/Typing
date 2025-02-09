@@ -69,7 +69,9 @@ fun TypingView(
         )
         TypingField(
             content = state.progress.string,
-            modifier = Modifier.weight(1f).fillMaxWidth(),
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth(),
             onCodePoint = { codePoint ->
                 onInputChange(state.progress.string + codePoint.toChar())
             },
