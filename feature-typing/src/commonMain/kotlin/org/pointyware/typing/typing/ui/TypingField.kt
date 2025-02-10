@@ -6,6 +6,7 @@ import androidx.compose.foundation.focusable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -42,14 +43,14 @@ fun TypingField(
     val focusRequester = remember { FocusRequester() }
     val interactionSource = remember { MutableInteractionSource() }
     val isFocused by interactionSource.collectIsFocusedAsState()
-//    Surface(
-//        modifier = modifier
-//    ) {
+    Surface(
+        modifier = modifier
+    ) {
         Text(
             text = content,
-            modifier = modifier
+            modifier = Modifier
                 .focusRequester(focusRequester)
-                .focusable()
+                .focusable(interactionSource = interactionSource)
                 .onKeyEvent { event ->
                     when {
                         event.type == KeyEventType.KeyDown -> {
@@ -63,7 +64,9 @@ fun TypingField(
                                     true
                                 }
                                 else -> {
-                                    onCodePoint(event.utf16CodePoint)
+                                    val codePoint = event.utf16CodePoint.toChar()
+                                    if (codePoint.isLetter())
+                                        onCodePoint(event.utf16CodePoint)
                                     true
                                 }
                             }
@@ -80,5 +83,5 @@ fun TypingField(
                     shape = RoundedCornerShape(4.dp)
                 )
         )
-//    }
+    }
 }
