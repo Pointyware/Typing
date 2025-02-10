@@ -1,17 +1,26 @@
 package org.pointyware.typing.typing.ui
 
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
-import androidx.compose.material3.Surface
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
-import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.input.key.utf16CodePoint
+import androidx.compose.ui.unit.dp
 
 /**
  * Provides a space to type text. Similar to a [TextField] but with fewer text controls. Text can
@@ -30,12 +39,17 @@ fun TypingField(
     onEnter: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Surface(
-        modifier = modifier
-    ) {
+    val focusRequester = remember { FocusRequester() }
+    val interactionSource = remember { MutableInteractionSource() }
+    val isFocused by interactionSource.collectIsFocusedAsState()
+//    Surface(
+//        modifier = modifier
+//    ) {
         Text(
             text = content,
-            modifier = Modifier
+            modifier = modifier
+                .focusRequester(focusRequester)
+                .focusable()
                 .onKeyEvent { event ->
                     when {
                         event.type == KeyEventType.KeyDown -> {
@@ -57,6 +71,14 @@ fun TypingField(
                         else -> false
                     }
                 }
+                .clickable {
+                    focusRequester.requestFocus()
+                }
+                .border(
+                    width = 1.dp,
+                    color = if (isFocused) Color.Blue else Color.Gray,
+                    shape = RoundedCornerShape(4.dp)
+                )
         )
-    }
+//    }
 }
