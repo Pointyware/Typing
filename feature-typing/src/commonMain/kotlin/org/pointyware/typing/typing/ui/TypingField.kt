@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -77,11 +78,13 @@ fun TypingField(
                 .clickable {
                     focusRequester.requestFocus()
                 }
+                .padding(8.dp)
                 .border(
                     width = 1.dp,
                     color = if (isFocused) Color.Blue else Color.Gray,
                     shape = RoundedCornerShape(4.dp)
                 )
+                .padding(8.dp)
         )
     }
 }
