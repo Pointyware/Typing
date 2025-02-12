@@ -65,17 +65,20 @@ fun TypingField(
     textStyle: TextStyle = LocalTextStyle.current,
     style: TypingFieldStyle = TypingFieldStyle.Default
 ) {
-    val focusRequester = remember { FocusRequester() }
-    val interactionSource = remember { MutableInteractionSource() }
-    val isFocused by interactionSource.collectIsFocusedAsState()
     Surface(
         modifier = modifier
     ) {
+        val focusRequester = remember { FocusRequester() }
+        val interactionSource = remember { MutableInteractionSource() }
+        val isFocused by interactionSource.collectIsFocusedAsState()
         Text(
             text = content,
             color = color,
             style = textStyle,
             modifier = Modifier
+                .clickable {
+                    focusRequester.requestFocus()
+                }
                 .focusRequester(focusRequester)
                 .focusable(interactionSource = interactionSource)
                 .onKeyEvent { event ->
@@ -100,9 +103,6 @@ fun TypingField(
                         }
                         else -> false
                     }
-                }
-                .clickable {
-                    focusRequester.requestFocus()
                 }
                 .padding(style.borderPadding)
                 .border(
