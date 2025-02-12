@@ -7,6 +7,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +23,7 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.input.key.utf16CodePoint
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.pointyware.typing.ui.theme.TypingTheme
@@ -30,7 +32,6 @@ import org.pointyware.typing.ui.theme.mediumPadding
 data class TypingFieldStyle(
     val borderColor: Color,
     val focusedBorderColor: Color,
-    val textColor: Color,
     val borderPadding: Dp,
     val textPadding: Dp
 ) {
@@ -38,7 +39,6 @@ data class TypingFieldStyle(
         val Default = TypingFieldStyle(
             borderColor = Color.Gray,
             focusedBorderColor = Color.Blue,
-            textColor = Color.Unspecified,
             borderPadding = TypingTheme.mediumPadding,
             textPadding = TypingTheme.mediumPadding
         )
@@ -61,6 +61,8 @@ fun TypingField(
     onDelete: () -> Unit,
     onEnter: () -> Unit,
     modifier: Modifier = Modifier,
+    color: Color = Color.Unspecified,
+    textStyle: TextStyle = LocalTextStyle.current,
     style: TypingFieldStyle = TypingFieldStyle.Default
 ) {
     val focusRequester = remember { FocusRequester() }
@@ -71,7 +73,8 @@ fun TypingField(
     ) {
         Text(
             text = content,
-            color = style.textColor,
+            color = color,
+            style = textStyle,
             modifier = Modifier
                 .focusRequester(focusRequester)
                 .focusable(interactionSource = interactionSource)
