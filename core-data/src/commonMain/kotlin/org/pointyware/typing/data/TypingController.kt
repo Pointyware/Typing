@@ -14,6 +14,7 @@ interface TypingController {
 
     val subject: StateFlow<String>
     val progress: StateFlow<TypingProgress>
+    val isRunning: StateFlow<Boolean>
     val timeRemaining: StateFlow<Float>
     val wpm: StateFlow<Float>
 
@@ -34,6 +35,11 @@ interface TypingController {
     fun consume(key: Char)
 
     /**
+     * Remove the trailing character from [progress].
+     */
+    fun delete()
+
+    /**
      * Atomically set the input string.
      */
     fun setInput(input: String)
@@ -51,6 +57,10 @@ class TypingControllerImpl(
     override val progress: StateFlow<TypingProgress>
         get() = mutableProgress.asStateFlow()
 
+    private val mutableIsRunning = MutableStateFlow(false)
+    override val isRunning: StateFlow<Boolean>
+        get() = mutableIsRunning.asStateFlow()
+
     private val mutableTimeRemaining = MutableStateFlow(0f)
     override val timeRemaining: StateFlow<Float>
         get() = mutableTimeRemaining.asStateFlow()
@@ -65,6 +75,7 @@ class TypingControllerImpl(
         timeStarted = null
         mutableSubject.update { subjectProvider.nextSubject() }
         mutableProgress.update { TypingProgress("", emptyList(), 0f, 1f) }
+        mutableIsRunning.update { false }
         mutableTimeRemaining.update { 0f }
         mutableWpm.update { 0f }
     }
@@ -73,12 +84,18 @@ class TypingControllerImpl(
     override fun start() {
         if (timeStarted == null) {
             timeStarted = Clock.System.now()
+            mutableIsRunning.update { true }
         }
     }
 
     override fun consume(key: Char) {
         currentInput += key
         setInput(currentInput) // FIXME: this is inefficient
+    }
+
+    override fun delete() {
+        currentInput = currentInput.dropLast(1)
+        setInput(currentInput)
     }
 
     override fun setInput(input: String) {

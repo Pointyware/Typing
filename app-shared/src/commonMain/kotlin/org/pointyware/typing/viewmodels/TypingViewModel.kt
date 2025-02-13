@@ -15,8 +15,9 @@ interface TypingViewModel {
     val state: StateFlow<TypingUiState>
 
     fun onReset()
-    fun onKeyStroke(key: Char)
+    fun onKeyStroke(codePoint: Int): Boolean
     fun onInputChange(input: String)
+    fun onDelete()
 }
 
 /**
@@ -46,13 +47,27 @@ class TypingViewModelImpl(
         typingController.reset()
     }
 
-    override fun onKeyStroke(key: Char) {
-        typingController.start()
-        typingController.consume(key)
+    override fun onKeyStroke(codePoint: Int): Boolean {
+        if (typingController.isRunning.value) {
+            typingController.consume(codePoint.toChar())
+        } else {
+            typingController.start()
+        }
+        val character = codePoint.toChar()
+        return if (character.isDefined()) {
+            typingController.consume(character)
+            true
+        } else {
+            false
+        }
     }
 
     override fun onInputChange(input: String) {
         typingController.start()
         typingController.setInput(input)
+    }
+
+    override fun onDelete() {
+        typingController
     }
 }

@@ -50,14 +50,15 @@ data class TypingFieldStyle(
  * only be modified one character at a time either through entry or deletion. Copy-paste and all
  * other text utilities provided by TextField are not available.
  *
- * @param onCodePoint Invoked when a single character/codepoint is entered.
+ * @param onCodePoint Invoked when a single character/codepoint is entered. Return true to accept
+ * the code point value, which can be potentially undefined.
  * @param onDelete Invoked when a character is deleted.
  * @param onEnter Invoked when the enter/return key is pressed.
  */
 @Composable
 fun TypingField(
     content: String,
-    onCodePoint: (Int) -> Unit,
+    onCodePoint: (Int) -> Boolean,
     onDelete: () -> Unit,
     onEnter: () -> Unit,
     modifier: Modifier = Modifier,
@@ -94,13 +95,7 @@ fun TypingField(
                                     true
                                 }
                                 else -> {
-                                    val codePoint = event.utf16CodePoint.toChar()
-                                    if (codePoint.isDefined()) {
-                                        onCodePoint(event.utf16CodePoint)
-                                        true
-                                    } else {
-                                        false
-                                    }
+                                    onCodePoint(event.utf16CodePoint)
                                 }
                             }
                         }

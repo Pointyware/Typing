@@ -34,7 +34,8 @@ fun TypingScreen(
     TypingView(
         state = state,
         modifier = modifier.fillMaxSize(),
-        onInputChange = viewModel::onInputChange,
+        onCodePoint = viewModel::onKeyStroke,
+        onDelete = viewModel::onDelete,
         onReset = viewModel::onReset
     )
 }
@@ -43,7 +44,8 @@ fun TypingScreen(
 fun TypingView(
     state: TypingUiState,
     modifier: Modifier = Modifier,
-    onInputChange: (String) -> Unit,
+    onCodePoint: (Int) -> Boolean,
+    onDelete: () -> Unit,
     onReset: () -> Unit,
 ) {
     Column(
@@ -73,10 +75,10 @@ fun TypingView(
                 .weight(1f)
                 .fillMaxWidth(),
             onCodePoint = { codePoint ->
-                onInputChange(state.progress.string + codePoint.toChar())
+                onCodePoint(codePoint)
             },
             onDelete = {
-                onInputChange(state.progress.string.dropLast(1))
+                onDelete()
             },
             onEnter = {
                 onReset()
