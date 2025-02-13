@@ -95,9 +95,12 @@ fun TypingField(
                                 }
                                 else -> {
                                     val codePoint = event.utf16CodePoint.toChar()
-                                    if (codePoint.isLetter())
+                                    if (codePoint.isDefined()) {
                                         onCodePoint(event.utf16CodePoint)
-                                    true
+                                        true
+                                    } else {
+                                        false
+                                    }
                                 }
                             }
                         }
