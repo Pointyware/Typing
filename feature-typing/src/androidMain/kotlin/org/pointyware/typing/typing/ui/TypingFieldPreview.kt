@@ -27,6 +27,7 @@ fun TypingFieldPreview(
         content = content,
         onCodePoint = { codePoint ->
             content += codePoint.toChar()
+            true
         },
         onDelete = {
             content = content.dropLast(1)
