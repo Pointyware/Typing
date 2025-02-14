@@ -48,9 +48,7 @@ class TypingViewModelImpl(
     }
 
     override fun onKeyStroke(codePoint: Int): Boolean {
-        if (typingController.isRunning.value) {
-            typingController.consume(codePoint.toChar())
-        } else {
+        if (!typingController.isRunning.value) {
             typingController.start()
         }
         val character = codePoint.toChar()
