@@ -22,7 +22,7 @@ fun TypingApp(
 
     NavHost(
         navController = navController,
-        startDestination = Screen.Typing
+        startDestination = Screen.MainMenu
     ) {
         composable<Screen.MainMenu> {
             Text("Main Menu")
