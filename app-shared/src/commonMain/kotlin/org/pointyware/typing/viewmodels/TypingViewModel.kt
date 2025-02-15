@@ -16,7 +16,6 @@ interface TypingViewModel {
 
     fun onReset()
     fun onKeyStroke(codePoint: Int): Boolean
-    fun onInputChange(input: String)
     fun onDelete()
 }
 
@@ -60,12 +59,7 @@ class TypingViewModelImpl(
         }
     }
 
-    override fun onInputChange(input: String) {
-        typingController.start()
-        typingController.setInput(input)
-    }
-
     override fun onDelete() {
-        typingController
+        typingController.delete()
     }
 }
