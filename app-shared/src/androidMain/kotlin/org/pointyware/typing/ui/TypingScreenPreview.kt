@@ -28,7 +28,8 @@ fun TypingScreenPreview() {
                     loadingState = LoadingState.Idle,
                     timerState = TimerUiState.Running(timeRemaining = 15)
                 ),
-                onInputChange = {},
+                onCodePoint = { true },
+                onDelete = {},
                 onReset = {}
             )
         }
