@@ -1,6 +1,7 @@
 package org.pointyware.typing.navigation
 
 import kotlinx.serialization.Serializable
+import org.pointyware.typing.typing.SubjectSource
 
 /**
  */
@@ -9,7 +10,9 @@ sealed interface Screen {
     data object MainMenu : Screen
 
     @Serializable
-    data object Typing : Screen
+    data class Typing(
+        val subjectSource: SubjectSource
+    ): Screen
 
     @Serializable
     data object Settings : Screen
