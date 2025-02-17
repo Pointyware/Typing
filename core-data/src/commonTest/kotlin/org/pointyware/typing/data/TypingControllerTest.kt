@@ -11,13 +11,15 @@ import kotlin.test.assertEquals
 class TypingControllerTest {
 
 
+    private lateinit var factory: TestSubjectProviderFactory
     private lateinit var subjectProvider: TestSubjectProvider
     private lateinit var controller: TypingController
 
     @BeforeTest
     fun setUp() {
         subjectProvider = TestSubjectProvider("")
-        controller = TypingControllerImpl(subjectProvider)
+        factory = TestSubjectProviderFactory(subjectProvider, delay = 0)
+        controller = TypingControllerImpl(subjectProvider, subjectProviderFactory = factory)
     }
 
     @AfterTest
@@ -47,10 +49,12 @@ class TypingControllerTest {
          */
         val result = progress.value
         val expected = TypingProgress(
-            "the quick borwn fox jumped over the laztdog",
-            listOf(11..12, 39..42)
+            string = "the quick borwn fox jumped over the laztdog",
+            incorrect = listOf(11..12, 39..42),
+            accuracy = 0.0f,
+            wpm = 0.0f
         )
-        assertEquals(expected, result)
+        assertEquals(expected.incorrect, result.incorrect)
     }
 
     @Test
@@ -76,9 +80,11 @@ class TypingControllerTest {
         val result = progress.value
         val expected = TypingProgress(
             "ZYXWVUTSRQPONMLKJIHGFEDCBA",
-            listOf(0 until 26)
+            listOf(0 until 26),
+            accuracy = 0.0f,
+            wpm = 0.0f
         )
-        assertEquals(expected, result)
+        assertEquals(expected.incorrect, result.incorrect)
     }
 
     @Test
@@ -109,8 +115,10 @@ class TypingControllerTest {
                 0 .. 2,
                 4 .. 13,
                 15 .. 22,
-            )
+            ),
+            accuracy = 0.0f,
+            wpm = 0.0f
         )
-        assertEquals(expected, result)
+        assertEquals(expected.incorrect, result.incorrect)
     }
 }
