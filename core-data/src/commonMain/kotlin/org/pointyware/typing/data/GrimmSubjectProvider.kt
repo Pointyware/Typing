@@ -1,4 +1,4 @@
-package org.pointyware.typing.typing
+package org.pointyware.typing.data
 
 import kotlinx.io.Buffer
 import kotlinx.io.files.Path
@@ -6,8 +6,6 @@ import kotlinx.io.files.SystemFileSystem
 import kotlinx.io.readString
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.pointyware.typing.data.SubjectProvider
 
 /**
  * Retrieves a Brothers Grimm fairy tale as the subject for the user to type.
