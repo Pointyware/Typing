@@ -31,6 +31,7 @@ class TypingViewModelImpl(
     override val state: StateFlow<TypingUiState>
         get() = combine(typingController.subject, typingController.progress) { subject, progress ->
             TypingUiState(
+                subjectSource = null,
                 subject = subject,
                 progress = progress,
                 timerState = TimerUiState.Hidden,
