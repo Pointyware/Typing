@@ -4,15 +4,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.core.bundle.Bundle
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import org.koin.core.parameter.parametersOf
 import org.koin.mp.KoinPlatform.getKoin
+import org.pointyware.typing.data.SubjectSource
 import org.pointyware.typing.navigation.Screen
 import org.pointyware.typing.viewmodels.MainMenuViewModel
 import org.pointyware.typing.viewmodels.TypingViewModel
+import kotlin.reflect.typeOf
 
 /**
  *
@@ -41,7 +47,11 @@ fun TypingApp(
         composable<Screen.Settings> {
             Text("Settings")
         }
-        composable<Screen.Typing> {
+        composable<Screen.Typing>(
+            typeMap = mapOf(
+                typeOf<SubjectSource>() to SubjectSourceNavType
+            )
+        ) {
             val arg = it.toRoute<Screen.Typing>()
 
             val koin = remember { getKoin() }
@@ -51,5 +61,22 @@ fun TypingApp(
                 modifier = Modifier
             )
         }
+    }
+}
+
+object SubjectSourceNavType: NavType<SubjectSource>(isNullableAllowed = false) {
+
+    val json = Json
+
+    override fun get(bundle: Bundle, key: String): SubjectSource? {
+        return bundle.getString(key)?.let(json::decodeFromString)
+    }
+
+    override fun parseValue(value: String): SubjectSource {
+        return json.decodeFromString(value)
+    }
+
+    override fun put(bundle: Bundle, key: String, value: SubjectSource) {
+        bundle.putString(key, json.encodeToString(value))
     }
 }
