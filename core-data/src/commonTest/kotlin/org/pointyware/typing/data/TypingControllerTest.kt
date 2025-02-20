@@ -1,5 +1,9 @@
 package org.pointyware.typing.data
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.setMain
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -17,9 +21,12 @@ class TypingControllerTest {
 
     @BeforeTest
     fun setUp() {
+        val testDispatcher = StandardTestDispatcher()
+        Dispatchers.setMain(testDispatcher)
+        val testCoroutineScope = CoroutineScope(testDispatcher)
         subjectProvider = TestSubjectProvider("")
         factory = TestSubjectProviderFactory(subjectProvider, delay = 0)
-        controller = TypingControllerImpl(subjectProvider, subjectProviderFactory = factory)
+        controller = TypingControllerImpl(subjectProvider, subjectProviderFactory = factory, testCoroutineScope)
     }
 
     @AfterTest
