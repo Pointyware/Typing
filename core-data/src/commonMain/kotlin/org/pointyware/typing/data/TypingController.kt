@@ -50,7 +50,7 @@ interface TypingController {
 }
 
 class TypingControllerImpl(
-    private val subjectProvider: SubjectProvider,
+    private var subjectProvider: SubjectProvider,
     private val subjectProviderFactory: SubjectProviderFactory
 ): TypingController {
 
