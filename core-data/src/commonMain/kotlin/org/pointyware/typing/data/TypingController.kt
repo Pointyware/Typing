@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 
@@ -12,14 +13,17 @@ import kotlinx.datetime.Instant
  */
 interface TypingController {
 
+    val subjectSource: StateFlow<SubjectSource?>
     val subject: StateFlow<String>
     val progress: StateFlow<TypingProgress>
     val isRunning: StateFlow<Boolean>
     val timeRemaining: StateFlow<Float>
     val wpm: StateFlow<Float>
 
+    fun setSubjectSource(subjectSource: SubjectSource)
+
     /**
-     * Reset the controller state.
+     * Reset the controller state, retrieving the next [subject] from the [SubjectSource].
      */
     fun reset()
 
@@ -46,8 +50,13 @@ interface TypingController {
 }
 
 class TypingControllerImpl(
-    private val subjectProvider: SubjectProvider
+    private val subjectProvider: SubjectProvider,
+    private val subjectProviderFactory: SubjectProviderFactory
 ): TypingController {
+
+    private val mutableSubjectSource = MutableStateFlow<SubjectSource?>(null)
+    override val subjectSource: StateFlow<SubjectSource?>
+        get() = mutableSubjectSource.asStateFlow()
 
     private val mutableSubject = MutableStateFlow("")
     override val subject: StateFlow<String>
@@ -69,6 +78,12 @@ class TypingControllerImpl(
     override val wpm: StateFlow<Float>
         get() = mutableWpm.asStateFlow()
 
+    override fun setSubjectSource(subjectSource: SubjectSource) {
+        TODO("launch a coroutine to update the subject provider")
+        mutableSubjectSource.update { subjectSource }
+        subjectProvider = runBlocking { subjectProviderFactory.create(subjectSource) }
+    }
+
     private var currentInput = ""
     override fun reset() {
         currentInput = ""
@@ -83,6 +98,7 @@ class TypingControllerImpl(
     private var timeStarted: Instant? = null
     override fun start() {
         if (timeStarted == null) {
+            // TODO: get
             timeStarted = Clock.System.now()
             mutableIsRunning.update { true }
         }
