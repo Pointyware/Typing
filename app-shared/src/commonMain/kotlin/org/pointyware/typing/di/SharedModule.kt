@@ -27,4 +27,7 @@ fun sharedViewModelModule() = module {
         bind<TypingViewModel>()
     }
 
+    single<TypingViewModel> {
+        get<TypingViewModelImpl>()
+    }
 }
