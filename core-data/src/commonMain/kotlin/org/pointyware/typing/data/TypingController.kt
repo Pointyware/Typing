@@ -1,10 +1,13 @@
 package org.pointyware.typing.data
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 
@@ -20,7 +23,7 @@ interface TypingController {
     val timeRemaining: StateFlow<Float>
     val wpm: StateFlow<Float>
 
-    fun setSubjectSource(subjectSource: SubjectSource)
+    suspend fun setSubjectSource(subjectSource: SubjectSource)
 
     /**
      * Reset the controller state, retrieving the next [subject] from the [SubjectSource].
@@ -51,7 +54,8 @@ interface TypingController {
 
 class TypingControllerImpl(
     private var subjectProvider: SubjectProvider,
-    private val subjectProviderFactory: SubjectProviderFactory
+    private val subjectProviderFactory: SubjectProviderFactory,
+    private val coroutineScope: CoroutineScope
 ): TypingController {
 
     private val mutableSubjectSource = MutableStateFlow<SubjectSource?>(null)
@@ -78,10 +82,13 @@ class TypingControllerImpl(
     override val wpm: StateFlow<Float>
         get() = mutableWpm.asStateFlow()
 
-    override fun setSubjectSource(subjectSource: SubjectSource) {
-        TODO("launch a coroutine to update the subject provider")
+    private var factoryJob: Job? = null
+    override suspend fun setSubjectSource(subjectSource: SubjectSource) {
         mutableSubjectSource.update { subjectSource }
-        subjectProvider = runBlocking { subjectProviderFactory.create(subjectSource) }
+        factoryJob?.cancel("New subject source")
+        factoryJob = coroutineScope.launch {
+            subjectProvider = subjectProviderFactory.create(subjectSource)
+        }
     }
 
     private var currentInput = ""
