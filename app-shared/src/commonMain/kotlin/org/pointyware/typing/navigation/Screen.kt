@@ -1,7 +1,6 @@
 package org.pointyware.typing.navigation
 
 import kotlinx.serialization.Serializable
-import org.pointyware.typing.data.SubjectSource
 
 /**
  * Defines top-level destinations in the app.
@@ -12,7 +11,10 @@ sealed interface Screen {
 
     @Serializable
     data class Typing(
-        val subjectSource: SubjectSource
+        /**
+         * An integer id that uniquely identifies the subject source.
+         */
+        val subjectSourceId: Int
     ): Screen
 
     @Serializable
