@@ -61,7 +61,7 @@ class MainMenuViewModelImpl(
     override fun onSelectWords(index: Int) {
         _state.update {
             it.copy(
-                selectedVocab = it.vocabList.getOrNull(index),
+                selectedVocab = index,
             )
         }
     }
@@ -69,7 +69,7 @@ class MainMenuViewModelImpl(
     override fun onSelectParagraphs(index: Int) {
         _state.update {
             it.copy(
-                selectedParagraphs = it.storiesList.getOrNull(index),
+                selectedParagraphs = index,
             )
         }
     }

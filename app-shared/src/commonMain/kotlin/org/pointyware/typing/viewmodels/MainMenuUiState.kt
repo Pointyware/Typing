@@ -5,9 +5,9 @@ import org.pointyware.typing.ui.LoadingState
 
 data class MainMenuUiState(
     val vocabList: List<FileUri>,
-    val selectedVocab: FileUri?,
+    val selectedVocab: Int?,
     val storiesList: List<FileUri>,
-    val selectedParagraphs: FileUri?,
+    val selectedParagraphs: Int?,
     val loadingState: LoadingState
 ) {
     companion object {
