@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
@@ -32,6 +33,9 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.kotlinx.coroutines)
             implementation(libs.kotlinx.dateTime)
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kotlinx.io.core)
+            implementation(libs.kotlinx.io.bytestring)
 
             implementation(libs.koin.core)
         }
