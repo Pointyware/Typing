@@ -18,6 +18,7 @@ fun TypingScreenPreview() {
         Surface {
             TypingView(
                 state = TypingUiState(
+                    subjectSource = null,
                     subject = "Some subject",
                     progress = TypingProgress(
                         string = "some subject",
