@@ -16,7 +16,7 @@ data class FileUri(
     val fileUriString: String
 ): SubjectSource
 
-object SubjectSourceRegistry {
+object SubjectSourceRegistry { // TODO: load list of json files and register them on app startup
 
     private val map: MutableMap<Int, SubjectSource> = mutableMapOf()
 
