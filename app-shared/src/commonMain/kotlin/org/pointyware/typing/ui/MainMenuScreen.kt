@@ -4,10 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import org.pointyware.typing.data.FileUri
-import org.pointyware.typing.data.SubjectSource
-import org.pointyware.typing.data.storiesUri
-import org.pointyware.typing.data.vocabUri
 import org.pointyware.typing.viewmodels.MainMenuViewModel
 
 /**
@@ -20,12 +16,12 @@ fun MainMenuScreen(
 ) {
     Column {
         Button(
-            onClick = { onStartTyping(vocabUri.id) },
+            onClick = { onStartTyping(0) }, // TODO: replace with ui state
         ) {
             Text("Words")
         }
         Button(
-            onClick = { onStartTyping(storiesUri.id) },
+            onClick = { onStartTyping(1) }, // TODO: replace with ui state
         ) {
             Text("Paragraphs")
         }

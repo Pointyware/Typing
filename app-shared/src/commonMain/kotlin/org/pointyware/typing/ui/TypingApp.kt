@@ -12,11 +12,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.koin.core.parameter.parametersOf
 import org.koin.mp.KoinPlatform.getKoin
+import org.pointyware.typing.data.FileUri
 import org.pointyware.typing.data.SubjectSource
 import org.pointyware.typing.data.SubjectSourceRegistry
 import org.pointyware.typing.navigation.Screen
+import org.pointyware.typing.shared.Res
 import org.pointyware.typing.viewmodels.MainMenuViewModel
 import org.pointyware.typing.viewmodels.TypingViewModel
 import kotlin.reflect.typeOf
@@ -24,6 +27,7 @@ import kotlin.reflect.typeOf
 /**
  *
  */
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun TypingApp(
     navController: NavHostController
@@ -56,7 +60,15 @@ fun TypingApp(
             val arg = it.toRoute<Screen.Typing>()
 
             val koin = remember { getKoin() }
-            val subjectUri = remember(arg.subjectSourceId) { SubjectSourceRegistry.get(arg.subjectSourceId) }
+            val subjectUri = remember(arg.subjectSourceId) {
+                with(SubjectSourceRegistry) {
+                    put(FileUri(0, Res.getUri("files/vocab.json")))
+                    put(FileUri(1, Res.getUri("files/grimm-stories.json")))
+                    put(FileUri(1, Res.getUri("files/desktop-stories.json")))
+                }
+
+                SubjectSourceRegistry.get(arg.subjectSourceId)
+            }
             val viewModel = koin.get<TypingViewModel> { parametersOf(subjectUri) }
             TypingScreen(
                 viewModel = viewModel,
