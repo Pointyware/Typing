@@ -35,9 +35,9 @@ fun MainMenuScreen(
 fun MainMenuView(
     state: MainMenuUiState,
     modifier: Modifier = Modifier,
-    onSelectWords: (Int) -> Unit,
-    onSelectParagraphs: (Int) -> Unit,
-    onStartTyping: (Int) -> Unit,
+    onSelectWords: (index:Int) -> Unit,
+    onSelectParagraphs: (index:Int) -> Unit,
+    onStartTyping: (id:Int) -> Unit,
 ) {
     Column(
         modifier = modifier
