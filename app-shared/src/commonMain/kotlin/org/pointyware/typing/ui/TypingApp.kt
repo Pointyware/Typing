@@ -15,6 +15,7 @@ import kotlinx.serialization.json.Json
 import org.koin.core.parameter.parametersOf
 import org.koin.mp.KoinPlatform.getKoin
 import org.pointyware.typing.data.SubjectSource
+import org.pointyware.typing.data.SubjectSourceRegistry
 import org.pointyware.typing.navigation.Screen
 import org.pointyware.typing.viewmodels.MainMenuViewModel
 import org.pointyware.typing.viewmodels.TypingViewModel
@@ -40,7 +41,7 @@ fun TypingApp(
             MainMenuScreen(
                 viewModel = viewModel,
                 onStartTyping = {
-                    navController.navigate(Screen.Typing(subjectSource = it))
+                    navController.navigate(Screen.Typing(subjectSourceId = it))
                 }
             )
         }
@@ -55,7 +56,8 @@ fun TypingApp(
             val arg = it.toRoute<Screen.Typing>()
 
             val koin = remember { getKoin() }
-            val viewModel = koin.get<TypingViewModel> { parametersOf(arg.subjectSource) }
+            val subjectUri = remember(arg.subjectSourceId) { SubjectSourceRegistry.get(arg.subjectSourceId) }
+            val viewModel = koin.get<TypingViewModel> { parametersOf(subjectUri) }
             TypingScreen(
                 viewModel = viewModel,
                 modifier = Modifier
