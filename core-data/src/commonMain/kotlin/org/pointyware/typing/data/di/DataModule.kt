@@ -1,8 +1,9 @@
 package org.pointyware.typing.data.di
 
-import org.koin.core.module.dsl.bind
-import org.koin.core.module.dsl.singleOf
-import org.koin.core.parameter.parametersOf
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.SupervisorJob
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import org.pointyware.typing.data.GrimmSubjectProvider
@@ -12,6 +13,8 @@ import org.pointyware.typing.data.TypingController
 import org.pointyware.typing.data.TypingControllerImpl
 
 val stories_uri = named("stories-uri")
+
+val dataScope = named("data-scope")
 
 /**
  *
@@ -32,5 +35,9 @@ fun dataModule() = module {
         GrimmSubjectProvider(
             get<String>(qualifier = stories_uri)
         )
+    }
+
+    single<CoroutineScope>(qualifier = dataScope) {
+        CoroutineScope(Dispatchers.IO + SupervisorJob())
     }
 }
