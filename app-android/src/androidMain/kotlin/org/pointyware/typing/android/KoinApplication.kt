@@ -6,8 +6,8 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
+import org.pointyware.typing.data.di.stories_uri
 import org.pointyware.typing.di.sharedAppModule
-import org.pointyware.typing.typing.di.stories_uri
 
 /**
  */
