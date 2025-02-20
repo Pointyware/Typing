@@ -20,7 +20,7 @@ val dataScope = named("data-scope")
  */
 fun dataModule() = module {
     single<TypingController> {
-        TypingControllerImpl(get(), get(), get(qualifier = dataScope))
+        TypingControllerImpl(get(), get(qualifier = dataScope))
     }
 
     single<SubjectProviderFactory> {

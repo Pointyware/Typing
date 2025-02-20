@@ -53,7 +53,6 @@ interface TypingController {
 }
 
 class TypingControllerImpl(
-    private var subjectProvider: SubjectProvider,
     private val subjectProviderFactory: SubjectProviderFactory,
     private val coroutineScope: CoroutineScope
 ): TypingController {
@@ -82,6 +81,8 @@ class TypingControllerImpl(
     override val wpm: StateFlow<Float>
         get() = mutableWpm.asStateFlow()
 
+    private var subjectProvider: SubjectProvider? = null
+
     private var factoryJob: Job? = null
     override suspend fun setSubjectSource(subjectSource: SubjectSource) {
         mutableSubjectSource.update { subjectSource }
@@ -95,7 +96,7 @@ class TypingControllerImpl(
     override fun reset() {
         currentInput = ""
         timeStarted = null
-        mutableSubject.update { subjectProvider.nextSubject() }
+        mutableSubject.update { subjectProvider?.nextSubject() ?: "" }
         mutableProgress.update { TypingProgress("", emptyList(), 0f, 1f) }
         mutableIsRunning.update { false }
         mutableTimeRemaining.update { 0f }
