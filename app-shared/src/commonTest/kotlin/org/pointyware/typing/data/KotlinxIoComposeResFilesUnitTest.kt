@@ -20,6 +20,10 @@ class KotlinxIoComposeResFilesUnitTest {
     fun read_file_bytes() = runTest {
         val resourcePath = "files/someFile"
         val resourceBytes = Res.readBytes(resourcePath)
+        StringBuilder().apply {
+            resourceBytes.forEach { append(it.toChar()) }
+            assertEquals("These are the contents of the file.\n", toString())
+        }
     }
 
     @Test
