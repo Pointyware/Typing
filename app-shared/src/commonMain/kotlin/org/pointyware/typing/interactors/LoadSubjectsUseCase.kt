@@ -1,17 +1,20 @@
 package org.pointyware.typing.interactors
 
-import kotlinx.io.files.Path
-import kotlinx.io.files.SystemFileSystem
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.pointyware.typing.data.FileUri
 import org.pointyware.typing.shared.Res
 
 class LoadSubjectsUseCase {
 
-    operator fun invoke(): Result<LoadedSubjects> {
+    suspend operator fun invoke(): Result<LoadedSubjects> {
         try {
-            val vocabList = loadDirectoryFiles("files/words", idOffset = 0)
-            val storiesList = loadDirectoryFiles("files/paragraphs", idOffset = vocabList.size)
+            val vocabList = loadDirectoryFiles(idOffset = 0, listOf(
+                "files/words/vocab.json"
+            ))
+            val storiesList = loadDirectoryFiles(idOffset = vocabList.size, listOf(
+                "files/paragraphs/desktop-stories.json",
+                "files/paragraphs/grimm-stories.json",
+            ))
             return Result.success(LoadedSubjects(vocabList, storiesList))
         } catch (e: Exception) {
             return Result.failure(e)
@@ -19,10 +22,13 @@ class LoadSubjectsUseCase {
     }
 
     @OptIn(ExperimentalResourceApi::class)
-    private fun loadDirectoryFiles(directory: String, idOffset: Int): List<FileUri> {
-        val resolvedDirectory = Res.getUri(directory).substringAfter("file:")
-        return SystemFileSystem.list(Path(resolvedDirectory)).mapIndexed { index, file ->
-            FileUri(index + idOffset, SystemFileSystem.resolve(file).toString())
+    private suspend fun loadDirectoryFiles(idOffset: Int, files: List<String>): List<FileUri> {
+        return files.mapIndexed { index, file ->
+            val contents = Res.readBytes(file)
+            val stringBuilder = StringBuilder().apply {
+                contents.forEach { append(it.toChar()) }
+            }
+            FileUri(index + idOffset, stringBuilder.toString())
         }
     }
 }
