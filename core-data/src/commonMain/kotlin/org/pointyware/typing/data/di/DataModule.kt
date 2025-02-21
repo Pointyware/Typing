@@ -11,8 +11,6 @@ import org.pointyware.typing.data.SubjectProviderFactoryImpl
 import org.pointyware.typing.data.TypingController
 import org.pointyware.typing.data.TypingControllerImpl
 
-val stories_uri = named("stories-uri")
-
 val dataScope = named("data-scope")
 
 /**

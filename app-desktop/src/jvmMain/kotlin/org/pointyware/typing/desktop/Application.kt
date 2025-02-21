@@ -6,11 +6,9 @@ import androidx.compose.ui.window.rememberWindowState
 import androidx.navigation.compose.rememberNavController
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.koin.core.context.startKoin
-import org.koin.dsl.module
 import org.pointyware.typing.data.FileUri
 import org.pointyware.typing.data.SubjectSourceRegistry
 import org.pointyware.typing.di.sharedAppModule
-import org.pointyware.typing.data.di.stories_uri
 import org.pointyware.typing.ui.TypingApp
 import org.pointyware.typing.ui.theme.TypingTheme
 
@@ -30,12 +28,6 @@ fun main(vararg args: String) = application {
     startKoin {
         modules(
             sharedAppModule(),
-
-            module {
-                factory<String>(qualifier = stories_uri) {
-                    Res.getUri("files/desktop-stories.json")
-                }
-            }
         )
     }
 
