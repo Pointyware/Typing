@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.koin.core.context.startKoin
+import org.koin.mp.KoinPlatform.getKoin
 import org.pointyware.typing.data.SubjectSourceRegistry
 import org.pointyware.typing.di.sharedAppModule
 import org.pointyware.typing.ui.TypingApp
@@ -26,9 +27,11 @@ fun main(vararg args: String) = application {
         )
     }
 
+    val subjectSourceRegistry = getKoin().get<SubjectSourceRegistry>()
+
     runBlocking {
         println("Loading Registry")
-        SubjectSourceRegistry.loadFrom(
+        subjectSourceRegistry.loadFrom(
             fileBytes = SharedRes.readBytes("files/paragraphs"),
             wordMapper = { SharedRes.getUri("files/words/$it.json") },
             paragraphMapper = { SharedRes.getUri("files/paragraphs/$it.json") }

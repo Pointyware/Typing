@@ -3,13 +3,15 @@ package org.pointyware.typing.interactors
 import org.pointyware.typing.data.FileUri
 import org.pointyware.typing.data.SubjectSourceRegistry
 
-class LoadSubjectsUseCase {
+class LoadSubjectsUseCase(
+    private val subjectSourceRegistry: SubjectSourceRegistry
+) {
 
     suspend operator fun invoke(): Result<LoadedSubjects> {
         try {
             val vocabList = mutableListOf<FileUri>()
             val storiesList = mutableListOf<FileUri>()
-            SubjectSourceRegistry.getAll().forEach {
+            subjectSourceRegistry.getAll().forEach {
                 when(it) {
                     is FileUri -> {
                         when {

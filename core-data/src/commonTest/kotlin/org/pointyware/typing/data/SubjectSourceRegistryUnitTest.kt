@@ -4,6 +4,7 @@ import kotlinx.coroutines.test.runTest
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
+import org.koin.mp.KoinPlatform.getKoin
 import org.pointyware.typing.data.di.dataModule
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
@@ -15,6 +16,8 @@ import kotlin.test.assertTrue
  */
 class SubjectSourceRegistryUnitTest {
 
+    private lateinit var registry: SubjectSourceRegistry
+
     @BeforeTest
     fun setUp() {
         startKoin {
@@ -22,6 +25,8 @@ class SubjectSourceRegistryUnitTest {
                 dataModule(),
             )
         }
+
+        registry = getKoin().get()
     }
 
     @AfterTest
@@ -32,7 +37,7 @@ class SubjectSourceRegistryUnitTest {
     @OptIn(ExperimentalResourceApi::class)
     @Test
     fun registryLoadsFileContents() = runTest {
-        SubjectSourceRegistry.loadFrom(
+        registry.loadFrom(
             Res.readBytes("files/directory.json"),
             { Res.getUri("files/words/$it.json") },
             { Res.getUri("files/paragraphs/$it.json") }
@@ -47,7 +52,7 @@ class SubjectSourceRegistryUnitTest {
             "files/paragraphs/theta.json"
         )
         (0..5).forEach {
-            val fileUri = SubjectSourceRegistry.get(it) as FileUri
+            val fileUri = registry.get(it) as FileUri
 
             assertEquals(it, fileUri.id)
             assertTrue(fileUri.fileUriString.endsWith(expectedSuffixes[it]))

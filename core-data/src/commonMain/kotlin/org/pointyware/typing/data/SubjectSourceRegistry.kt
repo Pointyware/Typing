@@ -6,7 +6,7 @@ import org.koin.mp.KoinPlatform.getKoin
 /**
  * A registry of available subjects.
  */
-object SubjectSourceRegistry { // TODO: load list of json files and register them on app startup
+class SubjectSourceRegistry { // TODO: load list of json files and register them on app startup
 
     private val map: MutableMap<Int, SubjectSource> = mutableMapOf()
 
