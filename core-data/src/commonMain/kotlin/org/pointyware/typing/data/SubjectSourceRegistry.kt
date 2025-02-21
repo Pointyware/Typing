@@ -1,25 +1,37 @@
 package org.pointyware.typing.data
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import org.koin.mp.KoinPlatform.getKoin
 import kotlin.coroutines.CoroutineContext
 
+interface SubjectSourceRegistry {
+    suspend fun loadFrom(
+        byteLoader: suspend ()->ByteArray,
+        wordMapper: ResourceUriMapper,
+        paragraphMapper: ResourceUriMapper
+    )
+    fun put(subjectSource: SubjectSource)
+    fun get(id: Int): SubjectSource?
+    fun getAll(): List<SubjectSource>
+}
+
+fun interface ResourceUriMapper {
+    fun map(resource: String): String
+}
+
 /**
  * A registry of available subjects.
  */
-class SubjectSourceRegistry(
+class SubjectSourceRegistryImpl(
     private val dataContext: CoroutineContext
-) { // TODO: load list of json files and register them on app startup
+): SubjectSourceRegistry { // TODO: load list of json files and register them on app startup
 
     private val map: MutableMap<Int, SubjectSource> = mutableMapOf()
 
     private val json = getKoin().get<Json>()
 
-    suspend fun loadFrom(
+    override suspend fun loadFrom(
         byteLoader: suspend ()->ByteArray,
         wordMapper: ResourceUriMapper,
         paragraphMapper: ResourceUriMapper
@@ -35,19 +47,15 @@ class SubjectSourceRegistry(
         }
     }
 
-    fun interface ResourceUriMapper {
-        fun map(resource: String): String
-    }
-
-    fun put(subjectSource: SubjectSource) {
+    override fun put(subjectSource: SubjectSource) {
         map[subjectSource.id] = subjectSource
     }
 
-    fun get(id: Int): SubjectSource? {
+    override fun get(id: Int): SubjectSource? {
         return map[id]
     }
 
-    fun getAll(): List<SubjectSource> {
+    override fun getAll(): List<SubjectSource> {
         return map.values.toList()
     }
 }

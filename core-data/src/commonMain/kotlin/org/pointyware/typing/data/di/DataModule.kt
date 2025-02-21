@@ -11,6 +11,7 @@ import org.koin.dsl.module
 import org.pointyware.typing.data.SubjectProviderFactory
 import org.pointyware.typing.data.SubjectProviderFactoryImpl
 import org.pointyware.typing.data.SubjectSourceRegistry
+import org.pointyware.typing.data.SubjectSourceRegistryImpl
 import org.pointyware.typing.data.TypingController
 import org.pointyware.typing.data.TypingControllerImpl
 import kotlin.coroutines.CoroutineContext
@@ -28,7 +29,7 @@ fun dataModule() = module {
     }
 
     single<SubjectSourceRegistry> {
-        SubjectSourceRegistry(dataCoroutineContext)
+        SubjectSourceRegistryImpl(dataCoroutineContext)
     }
 
     single<SubjectProviderFactory> {
