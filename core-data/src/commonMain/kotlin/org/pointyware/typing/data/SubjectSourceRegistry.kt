@@ -25,9 +25,7 @@ class SubjectSourceRegistry(
         paragraphMapper: ResourceUriMapper
     ) = withContext(dataContext) {
         val fileBytes = byteLoader()
-        val builder = StringBuilder()
-        fileBytes.forEach { builder.append(it.toInt().toChar()) }
-        val jsonString = builder.toString()
+        val jsonString = fileBytes.decodeToString()
         val registryContent = json.decodeFromString<JsonRegistry>(jsonString)
         registryContent.words.forEachIndexed { index, word ->
             put(FileUri(map.size, wordMapper.map(word)))
