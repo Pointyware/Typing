@@ -2,6 +2,7 @@ package org.pointyware.typing.ui
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.core.bundle.Bundle
@@ -60,16 +61,11 @@ fun TypingApp(
             val arg = it.toRoute<Screen.Typing>()
 
             val koin = remember { getKoin() }
-            val subjectUri = remember(arg.subjectSourceId) {
-                with(SubjectSourceRegistry) {
-                    put(FileUri(0, Res.getUri("files/words/vocab.json")))
-                    put(FileUri(1, Res.getUri("files/paragraphs/grimm-stories.json")))
-                    put(FileUri(1, Res.getUri("files/paragraphs/desktop-stories.json")))
-                }
-
-                SubjectSourceRegistry.get(arg.subjectSourceId)
+            val viewModel = koin.get<TypingViewModel>()
+            LaunchedEffect(arg) {
+                val subjectSource = SubjectSourceRegistry.get(arg.subjectSourceId)
+                viewModel.setSubjectSource(subjectSource ?: error("Subject source not found"))
             }
-            val viewModel = koin.get<TypingViewModel> { parametersOf(subjectUri) }
             TypingScreen(
                 viewModel = viewModel,
                 modifier = Modifier
