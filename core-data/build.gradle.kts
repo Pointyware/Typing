@@ -41,6 +41,7 @@ kotlin {
 
             implementation(libs.koin.core)
 
+            implementation(compose.runtime)
             implementation(compose.components.resources)
         }
         commonTest.dependencies {
