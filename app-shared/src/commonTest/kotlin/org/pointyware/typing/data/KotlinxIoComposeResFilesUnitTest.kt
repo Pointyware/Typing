@@ -1,11 +1,12 @@
 package org.pointyware.typing.data
 
+import kotlinx.coroutines.test.runTest
 import kotlinx.io.Buffer
 import kotlinx.io.files.Path
 import kotlinx.io.files.SystemFileSystem
 import kotlinx.io.readString
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.pointyware.typing.typing.Res
+import org.pointyware.typing.shared.Res
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -34,6 +35,6 @@ class KotlinxIoComposeResFilesUnitTest {
         assertTrue(bytesRead > 0)
 
         val rawString = buffer.readString()
-        assertEquals("These are the contents of the file.", rawString)
+        assertEquals("These are the contents of the file.\n", rawString)
     }
 }
