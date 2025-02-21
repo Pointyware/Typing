@@ -1,15 +1,18 @@
 package org.pointyware.typing.data
 
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import org.koin.mp.KoinPlatform.getKoin
+import kotlin.coroutines.CoroutineContext
 
 /**
  * A registry of available subjects.
  */
 class SubjectSourceRegistry(
-    private val dataScope: CoroutineScope
+    private val dataContext: CoroutineContext
 ) { // TODO: load list of json files and register them on app startup
 
     private val map: MutableMap<Int, SubjectSource> = mutableMapOf()
@@ -17,11 +20,11 @@ class SubjectSourceRegistry(
     private val json = getKoin().get<Json>()
 
     suspend fun loadFrom(
-        fileBytes: ByteArray,
+        byteLoader: suspend ()->ByteArray,
         wordMapper: ResourceUriMapper,
         paragraphMapper: ResourceUriMapper
-    ) {
-        // decode ByteArray to String
+    ) = withContext(dataContext) {
+        val fileBytes = byteLoader()
         val builder = StringBuilder()
         fileBytes.forEach { builder.append(it.toInt().toChar()) }
         val jsonString = builder.toString()
