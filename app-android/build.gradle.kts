@@ -24,12 +24,12 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(projects.appShared)
-                implementation(libs.androidx.composeUi)
                 implementation(libs.androidx.composePreview)
-                implementation(libs.androidx.composeMaterial3)
                 implementation(libs.androidx.activityCompose)
-                implementation(libs.androidx.navigation.compose)
 
+                implementation(compose.ui)
+                implementation(compose.material3)
+                implementation(compose.material3AdaptiveNavigationSuite)
                 implementation(compose.components.resources)
 
                 implementation(libs.koin.android)
