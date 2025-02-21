@@ -9,6 +9,7 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.pointyware.typing.shared.Res
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 /**
@@ -32,6 +33,7 @@ class KotlinxIoComposeResFilesUnitTest {
         val resourceUriString = Res.getUri(resourcePath)
         val filePathString = resourceUriString.substringAfter("file:")
         val filePath = Path(filePathString)
+        assertFalse(filePathString.contains(".jar"))
 
         val rawSource = SystemFileSystem.source(filePath)
         val buffer = Buffer()
