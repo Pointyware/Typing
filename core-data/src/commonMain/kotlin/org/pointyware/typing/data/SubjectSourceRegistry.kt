@@ -26,7 +26,7 @@ object SubjectSourceRegistry { // TODO: load list of json files and register the
             put(FileUri(map.size, wordMapper.map(word)))
         }
         registryContent.paragraphs.forEachIndexed { index, paragraph ->
-            put(FileUri(index, paragraphMapper.map(paragraph)))
+            put(FileUri(map.size, paragraphMapper.map(paragraph)))
         }
     }
 
