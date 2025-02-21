@@ -4,6 +4,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.serialization.json.Json
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import org.pointyware.typing.data.SubjectProviderFactory
@@ -27,5 +28,11 @@ fun dataModule() = module {
 
     single<CoroutineScope>(qualifier = dataScope) {
         CoroutineScope(Dispatchers.IO + SupervisorJob())
+    }
+
+    single<Json> {
+        Json {
+            ignoreUnknownKeys = true
+        }
     }
 }
