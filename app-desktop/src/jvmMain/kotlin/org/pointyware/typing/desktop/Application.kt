@@ -23,9 +23,9 @@ fun main(vararg args: String) = application {
     runBlocking {
         println("Loading Registry")
         SubjectSourceRegistry.loadFrom(
-            fileBytes = Res.readBytes("files/available-files.json"),
-            wordMapper = { Res.getUri("files/words/$it.json") },
-            paragraphMapper = { Res.getUri("files/paragraphs/$it.json") }
+            fileBytes = SharedRes.readBytes("files/available-files.json"),
+            wordMapper = { SharedRes.getUri("files/words/$it.json") },
+            paragraphMapper = { SharedRes.getUri("files/paragraphs/$it.json") }
         )
         println("Registry Loaded")
     }
