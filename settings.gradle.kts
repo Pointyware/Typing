@@ -31,7 +31,3 @@ include(
     ":core-data",
     ":core-ui"
 )
-
-include(
-    ":kzip"
-)
