@@ -26,7 +26,7 @@ class TypingControllerTest {
         val testCoroutineScope = CoroutineScope(testDispatcher)
         subjectProvider = TestSubjectProvider("")
         factory = TestSubjectProviderFactory(subjectProvider, delay = 0)
-        controller = TypingControllerImpl(subjectProvider, subjectProviderFactory = factory, testCoroutineScope)
+        controller = TypingControllerImpl(subjectProviderFactory = factory, testCoroutineScope)
     }
 
     @AfterTest
