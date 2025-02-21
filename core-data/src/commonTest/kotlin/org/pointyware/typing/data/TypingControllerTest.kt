@@ -2,6 +2,7 @@ package org.pointyware.typing.data
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.setMain
 import kotlin.test.AfterTest
@@ -19,6 +20,7 @@ class TypingControllerTest {
     private lateinit var subjectProvider: TestSubjectProvider
     private lateinit var controller: TypingController
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @BeforeTest
     fun setUp() {
         val testDispatcher = StandardTestDispatcher()
