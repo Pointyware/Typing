@@ -57,6 +57,8 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.androidx.composePreview)
             implementation(libs.koin.android)
+
+            implementation(libs.androidx.navigation.compose)
         }
     }
 }

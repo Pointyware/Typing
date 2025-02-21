@@ -28,6 +28,7 @@ kotlin {
                 implementation(libs.androidx.composePreview)
                 implementation(libs.androidx.composeMaterial3)
                 implementation(libs.androidx.activityCompose)
+                implementation(libs.androidx.navigation.compose)
 
                 implementation(compose.components.resources)
 
