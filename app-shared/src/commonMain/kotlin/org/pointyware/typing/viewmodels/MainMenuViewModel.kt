@@ -38,6 +38,7 @@ class MainMenuViewModelImpl(
     override fun load() {
         loadingJob?.cancel("Loading job restarted")
         loadingJob = viewModelScope.launch {
+            println("Loading subjects")
             _state.update {
                 it.copy(
                     loadingState = LoadingState.Loading
@@ -45,6 +46,7 @@ class MainMenuViewModelImpl(
             }
             loadSubjectsUseCase()
                 .onSuccess { loadedSubjects ->
+                    println("Loaded subjects: ${loadedSubjects.vocabList.size} vocab, ${loadedSubjects.storiesList.size} stories")
                     _state.update {
                         it.copy(
                             vocabList = loadedSubjects.vocabList,
@@ -54,6 +56,8 @@ class MainMenuViewModelImpl(
                     }
                 }
                 .onFailure {  error ->
+                    println("Failed to load subjects: ${error.message}")
+                    error.printStackTrace()
                     _state.update {
                         it.copy(
                             loadingState = LoadingState.Error(error.message ?: "Unknown error")
@@ -61,6 +65,7 @@ class MainMenuViewModelImpl(
                     }
                 }
             loadingJob = null
+            println("Finished loading subjects")
         }
     }
 
