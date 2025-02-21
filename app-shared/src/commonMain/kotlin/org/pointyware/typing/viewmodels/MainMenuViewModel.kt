@@ -38,12 +38,18 @@ class MainMenuViewModelImpl(
     override fun load() {
         loadingJob?.cancel("Loading job restarted")
         loadingJob = viewModelScope.launch {
+            _state.update {
+                it.copy(
+                    loadingState = LoadingState.Loading
+                )
+            }
             loadSubjectsUseCase()
                 .onSuccess { loadedSubjects ->
                     _state.update {
                         it.copy(
                             vocabList = loadedSubjects.vocabList,
-                            storiesList = loadedSubjects.storiesList
+                            storiesList = loadedSubjects.storiesList,
+                            loadingState = LoadingState.Idle
                         )
                     }
                 }
