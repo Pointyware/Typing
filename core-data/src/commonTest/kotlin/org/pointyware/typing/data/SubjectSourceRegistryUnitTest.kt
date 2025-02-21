@@ -38,7 +38,7 @@ class SubjectSourceRegistryUnitTest {
     @Test
     fun registryLoadsFileContents() = runTest {
         registry.loadFrom(
-            Res.readBytes("files/directory.json"),
+            { Res.readBytes("files/directory.json") },
             { Res.getUri("files/words/$it.json") },
             { Res.getUri("files/paragraphs/$it.json") }
         )
