@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.composeMultiplatform)
+    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {
@@ -38,6 +40,8 @@ kotlin {
             implementation(libs.kotlinx.io.bytestring)
 
             implementation(libs.koin.core)
+
+            implementation(compose.components.resources)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -58,4 +62,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+}
+
+compose.resources {
+    packageOfResClass = "org.pointyware.typing.data"
+    generateResClass = always
+    publicResClass = true
 }
