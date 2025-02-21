@@ -1,5 +1,6 @@
 package org.pointyware.typing.desktop
 
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
@@ -29,7 +30,7 @@ fun main(vararg args: String) = application {
 
     val subjectSourceRegistry = getKoin().get<SubjectSourceRegistry>()
 
-    runBlocking {
+    LaunchedEffect(Unit) {
         println("Loading Registry")
         subjectSourceRegistry.loadFrom(
             fileBytes = SharedRes.readBytes("files/paragraphs"),
