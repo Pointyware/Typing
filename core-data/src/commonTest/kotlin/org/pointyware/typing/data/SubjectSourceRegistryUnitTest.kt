@@ -9,6 +9,7 @@ import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 /**
  */
@@ -37,11 +38,20 @@ class SubjectSourceRegistryUnitTest {
             { Res.getUri("files/paragraphs/$it.json") }
         )
 
-        assertEquals(FileUri(0, "files/words/alpha.json"), SubjectSourceRegistry.get(0))
-        assertEquals(FileUri(1, "files/words/beta.json"), SubjectSourceRegistry.get(1))
-        assertEquals(FileUri(2, "files/words/delta.json"), SubjectSourceRegistry.get(2))
-        assertEquals(FileUri(3, "files/paragraphs/gamma.json"), SubjectSourceRegistry.get(3))
-        assertEquals(FileUri(4, "files/paragraphs/phi.json"), SubjectSourceRegistry.get(4))
-        assertEquals(FileUri(5, "files/paragraphs/theta.json"), SubjectSourceRegistry.get(5))
+        val expectedSuffixes = listOf(
+            "files/words/alpha.json",
+            "files/words/beta.json",
+            "files/words/delta.json",
+            "files/paragraphs/gamma.json",
+            "files/paragraphs/phi.json",
+            "files/paragraphs/theta.json"
+        )
+        (0..5).forEach {
+            val fileUri = SubjectSourceRegistry.get(it) as FileUri
+
+            assertEquals(it, fileUri.id)
+            assertTrue(fileUri.fileUriString.endsWith(expectedSuffixes[it]))
+            assertTrue(fileUri.fileUriString.startsWith("file:"))
+        }
     }
 }
