@@ -25,7 +25,9 @@ fun dataModule() = module {
         TypingControllerImpl(get(), dataCoroutineScope)
     }
 
-    singleOf(::SubjectSourceRegistry)
+    single<SubjectSourceRegistry> {
+        SubjectSourceRegistry(dataCoroutineScope)
+    }
 
     single<SubjectProviderFactory> {
         SubjectProviderFactoryImpl()
