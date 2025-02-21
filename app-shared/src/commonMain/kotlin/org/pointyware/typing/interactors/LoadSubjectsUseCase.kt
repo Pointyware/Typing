@@ -1,6 +1,5 @@
 package org.pointyware.typing.interactors
 
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.pointyware.typing.data.FileUri
 
 class LoadSubjectsUseCase {
@@ -20,7 +19,6 @@ class LoadSubjectsUseCase {
         }
     }
 
-    @OptIn(ExperimentalResourceApi::class)
     private suspend fun loadDirectoryFiles(idOffset: Int, files: List<String>): List<FileUri> {
         return files.mapIndexed { index, file ->
             FileUri(index + idOffset, file)
