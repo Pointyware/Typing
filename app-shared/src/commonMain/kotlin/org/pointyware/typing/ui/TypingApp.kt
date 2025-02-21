@@ -62,9 +62,9 @@ fun TypingApp(
             val koin = remember { getKoin() }
             val subjectUri = remember(arg.subjectSourceId) {
                 with(SubjectSourceRegistry) {
-                    put(FileUri(0, Res.getUri("files/vocab.json")))
-                    put(FileUri(1, Res.getUri("files/grimm-stories.json")))
-                    put(FileUri(1, Res.getUri("files/desktop-stories.json")))
+                    put(FileUri(0, Res.getUri("files/words/vocab.json")))
+                    put(FileUri(1, Res.getUri("files/paragraphs/grimm-stories.json")))
+                    put(FileUri(1, Res.getUri("files/paragraphs/desktop-stories.json")))
                 }
 
                 SubjectSourceRegistry.get(arg.subjectSourceId)
