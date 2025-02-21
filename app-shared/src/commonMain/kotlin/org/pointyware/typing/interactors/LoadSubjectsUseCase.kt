@@ -1,18 +1,27 @@
 package org.pointyware.typing.interactors
 
 import org.pointyware.typing.data.FileUri
+import org.pointyware.typing.data.SubjectSourceRegistry
 
 class LoadSubjectsUseCase {
 
     suspend operator fun invoke(): Result<LoadedSubjects> {
         try {
-            val vocabList = loadDirectoryFiles(idOffset = 0, listOf(
-                "files/words/vocab.json"
-            ))
-            val storiesList = loadDirectoryFiles(idOffset = vocabList.size, listOf(
-                "files/paragraphs/desktop-stories.json",
-                "files/paragraphs/grimm-stories.json",
-            ))
+            val vocabList = mutableListOf<FileUri>()
+            val storiesList = mutableListOf<FileUri>()
+            SubjectSourceRegistry.getAll().forEach {
+                when(it) {
+                    is FileUri -> {
+                        when {
+                            it.fileUriString.contains("vocab") -> vocabList.add(it)
+                            it.fileUriString.contains("paragraphs") -> storiesList.add(it)
+                        }
+                    }
+                    else -> {
+                        println("Unsupported subject source: $it")
+                    }
+                }
+            }
             return Result.success(LoadedSubjects(vocabList, storiesList))
         } catch (e: Exception) {
             return Result.failure(e)

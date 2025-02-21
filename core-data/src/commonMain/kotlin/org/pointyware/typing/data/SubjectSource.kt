@@ -28,7 +28,7 @@ object SubjectSourceRegistry { // TODO: load list of json files and register the
         return map[id]
     }
 
-    fun get(): List<SubjectSource> {
+    fun getAll(): List<SubjectSource> {
         return map.values.toList()
     }
 }
