@@ -53,11 +53,7 @@ fun TypingApp(
         composable<Screen.Settings> {
             Text("Settings")
         }
-        composable<Screen.Typing>(
-            typeMap = mapOf(
-                typeOf<SubjectSource>() to SubjectSourceNavType
-            )
-        ) {
+        composable<Screen.Typing> {
             val arg = it.toRoute<Screen.Typing>()
 
             val koin = remember { getKoin() }
@@ -71,22 +67,5 @@ fun TypingApp(
                 modifier = Modifier
             )
         }
-    }
-}
-
-object SubjectSourceNavType: NavType<SubjectSource>(isNullableAllowed = false) {
-
-    val json = Json
-
-    override fun get(bundle: Bundle, key: String): SubjectSource? {
-        return bundle.getString(key)?.let(json::decodeFromString)
-    }
-
-    override fun parseValue(value: String): SubjectSource {
-        return json.decodeFromString(value)
-    }
-
-    override fun put(bundle: Bundle, key: String, value: SubjectSource) {
-        bundle.putString(key, json.encodeToString(value))
     }
 }
