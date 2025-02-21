@@ -20,20 +20,20 @@ import org.pointyware.typing.shared.Res as SharedRes
 fun main(vararg args: String) = application {
     // startup logic
 
-    runBlocking {
-        println("Loading Registry")
-        SubjectSourceRegistry.loadFrom(
-            fileBytes = SharedRes.readBytes("files/available-files.json"),
-            wordMapper = { SharedRes.getUri("files/words/$it.json") },
-            paragraphMapper = { SharedRes.getUri("files/paragraphs/$it.json") }
-        )
-        println("Registry Loaded")
-    }
-
     startKoin {
         modules(
             sharedAppModule(),
         )
+    }
+
+    runBlocking {
+        println("Loading Registry")
+        SubjectSourceRegistry.loadFrom(
+            fileBytes = SharedRes.readBytes("files/paragraphs"),
+            wordMapper = { SharedRes.getUri("files/words/$it.json") },
+            paragraphMapper = { SharedRes.getUri("files/paragraphs/$it.json") }
+        )
+        println("Registry Loaded")
     }
 
     val navController = rememberNavController()
