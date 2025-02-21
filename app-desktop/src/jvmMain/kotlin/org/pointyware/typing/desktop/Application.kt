@@ -4,9 +4,9 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.koin.core.context.startKoin
-import org.pointyware.typing.data.FileUri
 import org.pointyware.typing.data.SubjectSourceRegistry
 import org.pointyware.typing.di.sharedAppModule
 import org.pointyware.typing.ui.TypingApp
@@ -20,10 +20,14 @@ import org.pointyware.typing.shared.Res as SharedRes
 fun main(vararg args: String) = application {
     // startup logic
 
-    with(SubjectSourceRegistry) {
-        put(FileUri(0, SharedRes.getUri("files/words/vocab.json")))
-        put(FileUri(1, SharedRes.getUri("files/paragraphs/grimm-stories.json")))
-        put(FileUri(2, SharedRes.getUri("files/paragraphs/desktop-stories.json")))
+    runBlocking {
+        println("Loading Registry")
+        SubjectSourceRegistry.loadFrom(
+            fileBytes = Res.readBytes("files/available-files.json"),
+            wordMapper = { Res.getUri("files/words/$it.json") },
+            paragraphMapper = { Res.getUri("files/paragraphs/$it.json") }
+        )
+        println("Registry Loaded")
     }
 
     startKoin {
