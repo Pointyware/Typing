@@ -1,0 +1,59 @@
+name: Main PR Checks
+run-name: Verify `${{ github.head_ref }}` before merge to `main` by @${{ github.actor }}
+
+on:
+  pull_request:
+    types:
+      - opened        # initially opened
+      - reopened      # closed then opened again
+      - synchronize   # any changes pushed
+    branches:
+      - main
+    paths-ignore: # Only run checks on changes to code
+      - "**/docs/*"
+      - "*/README.md"
+
+jobs:
+  build-app-android:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Setup
+        uses: Pointyware/.github/.github/actions/checkout-java-gradle@b70bbae19637171d6cf9311f06a59f1c15e2598b
+      - name: Build Android
+        run: ./gradlew :app-android:assembleDebug
+      - name: Android Debug Unit Tests
+        run: ./gradlew testDebugUnitTest
+
+  build-app-ios:
+    if: github.event.pull_request.draft == false && false
+    runs-on: macos-14
+    steps:
+      - name: Setup
+        uses: Pointyware/.github/.github/actions/checkout-java-gradle@b70bbae19637171d6cf9311f06a59f1c15e2598b
+      - name: Build iOS
+        run: ./gradlew :app-ios:assemble
+      - name: Test iOS
+        run: ./gradlew testios
+    
+  build-app-desktop:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Setup
+        uses: Pointyware/.github/.github/actions/checkout-java-gradle@b70bbae19637171d6cf9311f06a59f1c15e2598b
+      - name: Build Desktop
+        run: ./gradlew :app-desktop:assemble
+      - name: Test Desktop
+        run: ./gradlew desktopTest
+    
+  build-app-browser:
+    if: github.event.pull_request.draft == false && false
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Setup
+        uses: Pointyware/.github/.github/actions/checkout-java-gradle@b70bbae19637171d6cf9311f06a59f1c15e2598b
+      - name: Build Browser
+        run: ./gradlew :app-browser:assemble
+      - name: Test Browser
+        run: ./gradlew jsBrowserTest
