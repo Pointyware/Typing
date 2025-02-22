@@ -11,6 +11,9 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 
+private const val charactersPerWord = 5f
+private const val millisPerMinute = 60.0e3f
+
 /**
  *
  */
@@ -126,8 +129,8 @@ class TypingControllerImpl(
         currentInput = input
         val wpm = timeStarted?.let {
             val elapsed = Clock.System.now() - it
-            val minutes = elapsed.inWholeMilliseconds / 60.0e3f
-            val words = input.length / 5f
+            val minutes = elapsed.inWholeMilliseconds / millisPerMinute
+            val words = input.length / charactersPerWord
             words / minutes
         } ?: 0f
         val mismatchedRanges = findMismatchedRangesForSubject(subject.value, input)
