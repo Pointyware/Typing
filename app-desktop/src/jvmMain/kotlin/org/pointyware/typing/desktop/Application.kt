@@ -32,7 +32,7 @@ fun main(vararg args: String) = application {
     LaunchedEffect(Unit) {
         println("Loading Registry")
         subjectSourceRegistry.loadFrom(
-            byteLoader = { SharedRes.readBytes("files/paragraphs") },
+            byteLoader = { SharedRes.readBytes("files/available-files.json") },
             wordMapper = { SharedRes.getUri("files/words/$it.json") },
             paragraphMapper = { SharedRes.getUri("files/paragraphs/$it.json") }
         )
