@@ -1,6 +1,6 @@
 [versions]
 activityCompose = "1.9.3"
-agp = "8.6.1"
+agp = "8.8.2"
 androidx-activity = "1.10.0"
 androidx-compose-ui = "1.7.7"
 app = "0.1.0"
